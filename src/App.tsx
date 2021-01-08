@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './layout/navBar/NavBar';
+import ErrorBoundary from './component/errors/ErrorBoundary';
+import IndexPage from './pages/IndexPage';
+
 
 function App() {
   return (
     <div className="App">
-      <NavBar/>
+    <ErrorBoundary>
+      <IndexPage/>
+    </ErrorBoundary>
     </div>
   );
 }
