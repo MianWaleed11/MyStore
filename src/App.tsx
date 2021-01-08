@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
 
+
 import ErrorBoundary from './component/errors/ErrorBoundary';
 import IndexPage from './pages/IndexPage';
 
+import Cards from './component/shared/cards/Cards';
+
 import NavBar from './layout/navBar/NavBar';
-import Cards from './component/shared/card/Card';
+
 //I comment this to test
 
 function App() {
