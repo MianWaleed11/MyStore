@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.logo {
+  line-height: 50px;
+  font-weight: 500px;
+  margin: 0 0 0 30px;
+}
+nav {
+  list-style: none;
+
+  background-color: #ecf0f1;
+  height: 50px;
+  width: 100%;
+}
+ul {
+  float: right;
+  margin-right: 10px;
+}
+nav ul li {
+  line-height: 50px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.navBar_form {
+  margin: 0 0 0 170px;
+  line-height: 50px;
+  display: inline-block;
+}
+.navbar_input {
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 500px;
+  height: 30px;
+}
+#check {
+  display: none;
+}
+.checkBtn {
+  display: none;
+  float: right;
+  line-height: 50px;
+  font-size: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 852px) {
+  .checkBtn {
+    display: block;
+  }
+  nav ul {
+    position: fixed;
+    left: -100%;
+    background-color: darkgreen;
+  }
+
+  #check:checked ~ ul {
+    left: 0;
+  }
+}

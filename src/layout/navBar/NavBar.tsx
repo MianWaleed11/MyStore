@@ -1,40 +1,52 @@
-import { Layout, Menu } from "antd";
 import React from "react";
-import store_pic from "../../assets/images/store_logo.png";
-import DropDown from "../../component/dropDown/DropDown";
-import CartButton from "../../component/cartButton/CartButton";
-import SearchBar from "../../component/search/SearchBar";
-import LoginButton from "../../component/loginButton/LoginButton";
 
+// import "./Navbar.css";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
-  const { Header } = Layout;
-
   return (
-    <div>
-      <Layout>
-        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">
-              {
-                <img
-                  src={store_pic}
-                  width="50px"
-                  height="50px"
-                  alt="store_pic"
-                />
-              }
-            </Menu.Item>
-            <Menu.Item key="2">{<DropDown />}</Menu.Item>
-            <Menu.Item key="3">{<SearchBar />}</Menu.Item>
-            <Menu.Item key="4">{<LoginButton />}</Menu.Item>
-            <Menu.Item key="5">{<CartButton />}</Menu.Item>
-          </Menu>
-        </Header>
-      </Layout>
-    </div>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <a className="navbar-brand" href="#">
+        Navbar
+      </a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              LOGIN
+            </a>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              REGISTER
+            </a>
+          </li>
+        </ul>
+        <form className="form-inline my-2 my-lg-0">
+          <input
+            className="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button className="btn btn-outline-dark my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
   );
 };
 
