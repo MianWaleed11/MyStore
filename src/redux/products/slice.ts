@@ -1,49 +1,41 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { HttpService } from "../../services/base.service";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productService } from "../../services/product.service";
 
-interface IproductsState {
-  products: any[];
-  isLoading: boolean;
-  test:string;
+interface IinitialState {
+  types: any[];
 }
 
-const initialState: IproductsState = {
-  products: [],
-  isLoading: false,
-test:'awaw'
+const initialState: IinitialState = {
+  types: [],
 };
 
-/**
- * 
- */
-export const allProducts: any = createAsyncThunk("products/all", async () => {
-  try {
-   const res:any=await productService.getProducts();
-   return res.data;
-  } catch (err) {
-    console.log(err);
+export const Products = createAsyncThunk(
+  "products/all",
+  async (query: string, thunkApi) => {
+    try {
+      const res: any = await productService.Products(query);
+      return res.data;
+    } catch (err) {
+      console.log(thunkApi.rejectWithValue("something wrong with api call"));
+    }
   }
-});
+);
 
-const productsReducer = createSlice({
+const ProductsReducer = createSlice({
   name: "products",
   initialState,
   reducers: {},
   extraReducers: {
-    [allProducts.pending]: (state) => {
-      state.isLoading = true;
+    [Products.pending.toString()]: (state) => {
+      console.log("pending");
     },
-    [allProducts.fulfilled]: (state, action) => {
-      state.products = action.payload;
-      state.isLoading=false;
+    [Products.fulfilled.toString()]: (state, action) => {
+      state.types = action.payload;
     },
-    [allProducts.rejected]:(state,action)=>{
-      console.log(action.payload)
-    }
+    [Products.rejected.toString()]: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
 
-export default productsReducer.reducer;
+export default ProductsReducer.reducer;

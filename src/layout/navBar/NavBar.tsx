@@ -1,11 +1,10 @@
 import React from "react";
-
-// import "./Navbar.css";
+import "./Navbar.css";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg">
       <a className="navbar-brand" href="#">
         Navbar
       </a>
@@ -24,13 +23,13 @@ const NavBar: React.FC<NavBarProps> = () => {
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <a className="nav-link" href="#">
-              LOGIN
+              Login
             </a>
           </li>
 
           <li className="nav-item">
             <a className="nav-link" href="#">
-              REGISTER
+              Register
             </a>
           </li>
         </ul>
@@ -41,7 +40,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             placeholder="Search"
             aria-label="Search"
           />
-          <button className="btn btn-outline-dark my-2 my-sm-0" type="submit">
+          <button className="btn btn-outline-light my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>

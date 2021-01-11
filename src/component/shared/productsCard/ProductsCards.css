@@ -1,11 +1,37 @@
-.card{
-    width: 80px;
-    background-color: brown;
+.card {
+  width: 230px;
+  border-radius: 12px;
+  color:  #fff3D3;
+  cursor: pointer;
 }
-.card-img-top{
-width: 34px;
-height: 34px;
+.card-img-top {
+  width: 260.5px;
+  height: 195.38px;
 }
-div{
-    background-color: red;
+
+.card-text {
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.card-footer{
+    height: 50px;
+    color: #fff3D3
+}
+.footer_text{
+    font-size: 14px;
+    font-weight: 600;
+    color: #656565;
+}
+.Show_more_btn{
+    color:#1D4354;
+    background-color: silver;
+    font-size: 12px;
+    width: 82.09px;
+    height: 25px;
+    margin: 0px 5px 0px 0px ;
+    padding: 3px 10px;
+    border-radius: 12px;
+    
 }

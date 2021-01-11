@@ -1,6 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import productsReducer from './products/slice'
+import CategoriesReducer from './categories/slice'
+import ProductsReducer from './Products/slice';
 
 export const rootReducer=combineReducers({
-productsReducer,
+CategoriesReducer,
+ProductsReducer,
+
 })
