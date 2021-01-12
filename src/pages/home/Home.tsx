@@ -9,15 +9,13 @@ import electrons from "../../assets/images/pexels-photo-450035.jpeg";
 import jewelery from "../../assets/images/download.jpg";
 import Carosel from "../../component/carousel/Carosel";
 import ProductsCards from "../../component/shared/productsCard/ProductsCard";
-import {useHistory} from 'react-router-dom'
-
-
+import { useHistory } from "react-router-dom";
 
 export interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
   let img: string;
-const history=useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
   const productsState = useSelector((state: any) => state.CategoriesReducer);
 
@@ -25,12 +23,9 @@ const history=useHistory();
     dispatch(Action.allCategories());
   }, [dispatch]);
 
-
-
-  const show=(type:string):void=>{
-      history.push(`/products/category/${type}`);
-  }
-
+  const show = (type: string): void => {
+    history.push(`/products/category/${type}`);
+  };
 
   const response = productsState.products.map((v: any, i: number) => {
     if (v === "jewelery") {
@@ -44,7 +39,7 @@ const history=useHistory();
     }
     return (
       <div className="col-lg-3 col-md-3 col-sm-12 mt-3">
-        <ProductsCards category={v} image={img}   showMore={()=>show(v)} />
+        <ProductsCards category={v} image={img} showMore={() => show(v)} />
       </div>
     );
   });
@@ -61,7 +56,6 @@ const history=useHistory();
 
         <Row>{response}</Row>
       </Container>
-    
     </>
   );
 };

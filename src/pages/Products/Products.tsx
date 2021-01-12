@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import ProductsCards from "../../component/shared/productsCard/ProductsCard";
 import NavBar from "../../layout/navBar/NavBar";
-import * as Actions from "../../redux/Products/slice";
+import * as Actions from '../../redux/products/slice'
 
 export interface ProductsProps {}
 
