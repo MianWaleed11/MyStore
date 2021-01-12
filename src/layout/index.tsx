@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "./footer/Footer";
 // import HomeFooter from "./footer/HomeFooter";
 import NavBar from "./navBar/NavBar";
 
@@ -10,6 +11,7 @@ const Layout: React.FC<LayoutProps> = (props) => {
       <NavBar />
       <div>{props.children}</div>
       {/* <HomeFooter/> */}
+      <Footer/>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 // import "./Navbar.css";
 export interface NavBarProps {}
@@ -7,7 +8,7 @@ const NavBar: React.FC<NavBarProps> = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
-        Navbar
+       Awais's Store
       </a>
       <button
         className="navbar-toggler"
@@ -29,9 +30,9 @@ const NavBar: React.FC<NavBarProps> = () => {
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <NavLink className="nav-link" to='/register'>
               REGISTER
-            </a>
+            </NavLink>
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">

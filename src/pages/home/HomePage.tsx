@@ -19,7 +19,6 @@ const HomePage: React.FC<HomePageProps> = () => {
           <ProductsCards />
         </Row>
       </Container>
-      <Footer/>
     </>
   );
 };

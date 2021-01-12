@@ -12,7 +12,7 @@ const ProductsCards: React.FC<CardsProps> = () => {
 
   useEffect(() => {
     dispatch(Action.allProducts());
-  }, [dispatch]);
+  }, []);
 
   const response = productsState.products.map((v: any, i: number) => {
     return (
