@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { LogInInterface } from "../../interfaces/login.interface";
-import { userService } from "../../services/user.service";
 import { loginSchema } from "../../validations/login.validation";
 import axios from "axios";
 import * as Actions from "../../redux/user/user.slice";
