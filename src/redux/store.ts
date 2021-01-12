@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./root.reducer";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-
+const persistConfig = {
+  key: "root",
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: rootReducer,
-  // middleware: (getDefaultMiddleware) => {
-  //   return getDefaultMiddleware({
-  //     serializableCheck: false,
-  //   });
-  // },
+  reducer: persistedReducer,
 });
-// store.subscribe(()=>{
-//     console.log('subscribe')
-// })
+export let persistor = persistStore(store);
