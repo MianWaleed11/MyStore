@@ -1,12 +1,15 @@
 import React from "react";
 import "./Navbar.css";
+import { NavLink } from "react-router-dom";
+
+// import "./Navbar.css";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   return (
     <nav className="navbar navbar-expand-lg">
       <a className="navbar-brand" href="#">
-        Navbar
+       Awais's Store
       </a>
       <button
         className="navbar-toggler"
@@ -28,9 +31,9 @@ const NavBar: React.FC<NavBarProps> = () => {
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              Register
-            </a>
+            <NavLink className="nav-link" to='/register'>
+              REGISTER
+            </NavLink>
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
