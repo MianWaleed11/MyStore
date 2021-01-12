@@ -1,14 +1,15 @@
 import React from "react";
 import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 // import "./Navbar.css";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
+  let history = useHistory()
   return (
     <nav className="navbar navbar-expand-lg">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" onClick={()=>history.push('/')}>
        Awais's Store
       </a>
       <button

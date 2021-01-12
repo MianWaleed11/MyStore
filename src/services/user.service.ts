@@ -1,4 +1,4 @@
-import { ILoginData } from "../interfaces/login.interface";
+import { ILoginData } from "../interfaces/register.interface";
 import { HttpService } from "./base.service";
 class UserService extends HttpService {
   private readonly prefix: string = "users";
