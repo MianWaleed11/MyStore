@@ -1,14 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ILoginData } from "../../interfaces/login.interface";
+import { ILoginData } from "../../interfaces";
 import { userService } from "../../services/user.service";
+import { IuserState } from "../../interfaces";
 
-interface userState {
-  products: ILoginData[];
-  isLoading: boolean;
-}
-
-const initialState: userState = {
-  products: [],
+const initialState: IuserState = {
+  users: [],
   isLoading: false,
 };
 
@@ -19,7 +15,7 @@ export const userThunk = createAsyncThunk(
       const res: any = await userService.createUser(data);
       return res.data;
     } catch (err) {
-        console.log(err.message)
+      console.log(err.message);
       return thunkApi.rejectWithValue("Something Went Worng!");
     }
   }
@@ -34,7 +30,7 @@ const userReducer = createSlice({
       state.isLoading = true;
     },
     [userThunk.fulfilled.toString()]: (state, action) => {
-      state.products = action.payload;
+      state.users = action.payload;
       state.isLoading = false;
     },
     [userThunk.rejected.toString()]: (state, action) => {

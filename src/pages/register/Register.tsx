@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Action from "../../redux/user/user.slice";
 const RegisterPage: React.FC = () => {
   let dispatch = useDispatch();
-  const userState = useSelector((state: any )=>state.userReducer.products)
+  const userState = useSelector((state: any) => state.userReducer.products);
   const { register, handleSubmit, errors } = useForm<ILoginData>({
     resolver: yupResolver(loginSchema),
   });
   const onSubmit = async (data: ILoginData) => {
     console.log(data);
     dispatch(Action.userThunk(data));
-    console.log(userState)
+    console.log(userState);
   };
   return (
     <div className="at-formholder">

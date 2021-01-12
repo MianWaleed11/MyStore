@@ -32,7 +32,7 @@ const NavBar: React.FC<NavBarProps> = () => {
 
           <li className="nav-item">
             <NavLink className="nav-link" to='/register'>
-              REGISTER
+              Register
             </NavLink>
           </li>
         </ul>
