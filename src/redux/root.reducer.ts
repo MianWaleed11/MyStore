@@ -1,11 +1,12 @@
-import {combineReducers} from '@reduxjs/toolkit';
-import CategoriesReducer from './categories/slice'
-import ProductsReducer from './products/slice';
+import { combineReducers } from "@reduxjs/toolkit";
+import CategoriesReducer from "./categories/slice";
+import ProductsReducer from "./Products/products.slice";
 import userReducer from "./user/user.slice";
+import AllProductsReducer from "./Products/allProducts.slice";
 
-export const rootReducer=combineReducers({
-    CategoriesReducer,
-    ProductsReducer,
-    userReducer
-})
-
+export const rootReducer = combineReducers({
+  CategoriesReducer,
+  ProductsReducer,
+  userReducer,
+  AllProductsReducer,
+});

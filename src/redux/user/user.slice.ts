@@ -1,7 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
-import { ILoginData } from "../../interfaces/register.interface";
-import { userService } from "../../services/user.service";
+import { createSlice } from "@reduxjs/toolkit";
+
 
 interface userState {
   token: string;

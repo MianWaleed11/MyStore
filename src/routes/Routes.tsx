@@ -6,6 +6,7 @@ import Products from "../pages/Products/Products";
 import RegisterPage from "../pages/register/Register";
 import NotFound from "../component/errors/NotFound";
 import Login from "../pages/login/Login";
+import ProductDetails from "../pages/productsDetails/ProductDetail";
 export interface RoutesProps {}
 
 const Routes: React.FC<RoutesProps> = () => {
@@ -19,6 +20,8 @@ const Routes: React.FC<RoutesProps> = () => {
           <Route exact path="/" component={HomePage} />
         </Layout>
         <Route component={NotFound} />
+          <Route  exact path='/products/details' component={ProductDetails}  />
+       
       </Switch>
     </>
   );

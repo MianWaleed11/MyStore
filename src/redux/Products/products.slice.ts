@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productService } from "../../services/product.service";
+import {IproductsState} from '../../interfaces'
 
-interface IinitialState {
-  types: any[];
-}
 
-const initialState: IinitialState = {
+const initialState: IproductsState = {
   types: [],
 };
 

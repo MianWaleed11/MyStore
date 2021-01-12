@@ -7,8 +7,8 @@ import women_jacket from "../../assets/images/pretty-young-stylish-sexy-woman-pi
 import men_jacket from "../../assets/images/jacket-men-s-jackets-men-s-jacket-winter-jackets (1)qwqwq.jpg";
 import electrons from "../../assets/images/pexels-photo-450035.jpeg";
 import jewelery from "../../assets/images/download.jpg";
-import Carosel from "../../component/carousel/Carosel";
-import ProductsCards from "../../component/shared/productsCard/ProductsCard";
+import { Carosel } from "../../component";
+import { ProductsCards } from "../../component";
 import { useHistory } from "react-router-dom";
 
 export interface HomePageProps {}
@@ -17,7 +17,7 @@ const HomePage: React.FC<HomePageProps> = () => {
   let img: string;
   const history = useHistory();
   const dispatch = useDispatch();
-  const productsState = useSelector((state: any) => state.CategoriesReducer);
+  const categoriesState = useSelector((state: any) => state.CategoriesReducer);
 
   useEffect(() => {
     dispatch(Action.allCategories());
@@ -27,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = () => {
     history.push(`/products/category/${type}`);
   };
 
-  const response = productsState.products.map((v: any, i: number) => {
+  const response = categoriesState.categories.map((v: any, i: number) => {
     if (v === "jewelery") {
       img = jewelery;
     } else if (v === "electronics") {
@@ -38,7 +38,7 @@ const HomePage: React.FC<HomePageProps> = () => {
       img = women_jacket;
     }
     return (
-      <div className="col-lg-3 col-md-3 col-sm-12 mt-3">
+      <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={i}>
         <ProductsCards category={v} image={img} showMore={() => show(v)} />
       </div>
     );
@@ -54,8 +54,13 @@ const HomePage: React.FC<HomePageProps> = () => {
         </h3>
         {/* <hr className /> */}
 
-        <Row>{response}</Row>
+        <Row>{response}
+        
+       
+        
+        </Row>
       </Container>
+     
     </>
   );
 };
