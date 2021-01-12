@@ -16,19 +16,13 @@ const ProductsCards: React.FC<CardsProps> = (props) => {
   return (
     <>
       <div className="card" onClick={props.showMore}>
-        <img
-          className="card-img-top"
-          src={props.image}
-          alt="Card cap"
-          width="50px"
-          height="200px"
-        />
+        <img className="card-img-top" src={props.image} alt="Card cap" />
         <div className="card-body">
           <p className="card-text">{props.title}</p>
           <p className="footer_text text-capitalize">{props.category}</p>
         </div>
         <div className="card-footer">
-          <p className='Show_more_btn'>Show More</p>
+          <p className="Show_more_btn">Show More</p>
         </div>
       </div>
     </>
