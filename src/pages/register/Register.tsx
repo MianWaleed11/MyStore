@@ -3,14 +3,15 @@ import { ILoginData } from "../../interfaces/register.interface";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../validations/register.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./register.css";
-import * as Action from "../../redux/user/user.slice";
 import { useHistory } from "react-router-dom";
-import { userService } from "../../services/user.service";
 import axios from "axios";
 import * as Actions from "../../redux/user/user.slice";
-
+import FacebookLogin from "react-facebook-login";
+import { GoogleLogin } from "react-google-login";
+// 564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com client id
+// XES5AIFxRP1L3ePOTZUBAhSr secret
 const RegisterPage: React.FC = () => {
   let history = useHistory();
 
@@ -27,11 +28,17 @@ const RegisterPage: React.FC = () => {
         data
       );
       console.log(res.data.meta.token);
-      dispatch(Actions.setToken(res.data.meta.token));
+      dispatch(Actions.setLogin(res.data.meta.token));
       history.replace("/");
     } catch (error) {}
   };
 
+  const responseFacebook = (response: any) => {
+    console.log(response);
+  };
+  const responseGoogle = (response: any) => {
+    console.log(response);
+  };
   const alreadyUser = () => {
     history.push("/login");
   };
@@ -113,11 +120,29 @@ const RegisterPage: React.FC = () => {
             <div>
               <label onClick={alreadyUser}>Already a User? Sign In</label>
             </div>
+            <div>
+              <FacebookLogin
+                appId="848624172349220"
+                autoLoad={true}
+                fields="name,email,picture"
+                callback={responseFacebook}
+              />
+            </div>
+            <div>
+              <GoogleLogin
+                clientId="564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
           </fieldset>
         </form>
       </div>
     </div>
   );
+  history.push("/products/${}");
 };
 
 export default RegisterPage;

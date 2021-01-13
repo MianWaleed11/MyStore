@@ -1,23 +1,29 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
-import { ILoginData } from "../../interfaces/register.interface";
-import { userService } from "../../services/user.service";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface userState {
   token: string;
   isLoading: boolean;
+  isloggedIn: boolean;
 }
 
 const initialState: userState = {
   token: "",
   isLoading: false,
+  isloggedIn: false,
 };
 const userReducer = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    setToken: (state, action) => {
+    setLogin: (state, action) => {
+      console.log("from action======>", action);
       state.token = action.payload;
+      state.isloggedIn = true;
+    },
+    setLogout: (state, action) => {
+      console.log("from action======>", action);
+      state.token = "";
+      state.isloggedIn = false;
     },
   },
 });
@@ -61,6 +67,5 @@ const userReducer = createSlice({
 //     },
 //   },
 // });
-
 export default userReducer.reducer;
-export const { setToken } = userReducer.actions;
+export const { setLogin,setLogout } = userReducer.actions;

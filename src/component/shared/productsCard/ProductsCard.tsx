@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { Card, CardDeck } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import * as Action from "../../../redux/categories/slice";
+import React from "react";
 import "./ProductsCards.css";
 
 export interface CardsProps {
