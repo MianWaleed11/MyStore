@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/user.slice";
+import axios from "axios";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
@@ -11,7 +12,8 @@ const NavBar: React.FC<NavBarProps> = () => {
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
-  const setLogout = () => {
+  const setLogout = async () => {
+    await axios.get("http://localhost:5000/api/users/logout");
     dispatch(Actions.setLogout(""));
   };
   return (

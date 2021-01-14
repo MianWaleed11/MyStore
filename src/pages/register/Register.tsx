@@ -25,12 +25,10 @@ const RegisterPage: React.FC = () => {
   const onSubmit = async (data: ILoginData) => {
     try {
       let res = await axios.post(
-        "http://127.0.0.1:3000/api/users/signup",
+        "http://localhost:5000/api/users/register",
         data
       );
-      console.log(res.data.meta.token);
-      dispatch(Actions.setLogin(res.data.meta.token));
-      history.replace("/");
+      history.replace("/login");
     } catch (error) {}
   };
 
@@ -59,13 +57,13 @@ const RegisterPage: React.FC = () => {
                 type="text"
                 className="form-control"
                 id="text"
-                name="firstname"
+                name="name"
                 aria-describedby="emailHelp"
                 placeholder="Enter First Name"
                 ref={register}
               />
               <small id="emailHelp" className="form-text text-muted">
-                {errors.firstname?.message}
+                {errors.name?.message}
               </small>
             </div>
             <div className="form-group">
@@ -81,6 +79,21 @@ const RegisterPage: React.FC = () => {
               />
               <small id="emailHelp" className="form-text text-muted">
                 {errors.lastname?.message}
+              </small>
+            </div>
+            <div className="form-group">
+              <label className="label-text">Role</label>
+              <input
+                ref={register}
+                type="text"
+                className="form-control"
+                id="text"
+                name="role"
+                aria-describedby="emailHelp"
+                placeholder="Enter Role"
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                {errors.role?.message}
               </small>
             </div>
             <div className="form-group">
