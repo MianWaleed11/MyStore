@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import "./ProductsCards.css";
 import { IproductsCardsProps } from "../../../interfaces";
@@ -26,3 +27,5 @@ export const ProductsCards: React.FC<IproductsCardsProps> = (props) => {
     </>
   );
 };
+=======
+>>>>>>> waleed
