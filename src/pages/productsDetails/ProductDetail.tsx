@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Row, Card, ListGroup } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,25 +8,29 @@ export interface ProductDetailsProps {}
 
 interface Iid {
   id: string;
+  category:string
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const productReducer = useSelector((state: any) => state.productReducer);
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
-  const loading = useSelector((state: any) => state.ProductsReducer.isLoading);
 
   const dispatch = useDispatch();
 
-  let { id } = useParams<Iid>();
+  let { id,category } = useParams<Iid>();
 
   useEffect(() => {
     dispatch(Actions.product(id));
-    dispatch(Actions.Products(productReducer.product.category));
+     dispatch(Actions.Products(category));
   }, []);
 
+ 
+
   const response = productsReducer.types.map((v: any, i: number) => {
+    
+
     return (
-      <div className="card-body">
+      <div className="card-body" key={i}>
         <span
           className="product_image"
           style={{

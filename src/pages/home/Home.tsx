@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
    */
 
   const show = (type: string): void => {
-    history.push(`/products/category/${type}`);
+    history.push(`/products/${type}`);
   };
 
   const categories = categoriesState.categories.map(
@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
                 alt="character"
                 className="character_pic"
               />
-              <small>Sajad CEO and co-founder, store</small>
+              <small>Sajjid CEO and co-founder, store</small>
             </div>
           </div>
           <div className="col-md-6 col-sm-12 animate__animated animate__bounceInLeft">

@@ -42,8 +42,8 @@ const Products: React.FC<ProductsProps> = () => {
     dispatch(Actions.allProducts());
   };
 
-  const showdetails = (id: string) => {
-    history.push(`/products/${id}`);
+  const showdetails = (id: string,category:string) => {
+    history.push(`/products/${category}/${id}`);
   };
 
   const allProducts = allProductsReducer.allProducts.map(
@@ -51,7 +51,7 @@ const Products: React.FC<ProductsProps> = () => {
       return (
         <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
           <ProductsCards
-            showMore={() => showdetails(value.id)}
+            showMore={() => showdetails(value.id,value.category)}
             category={value.category}
             image={value.image}
             title={value.title}

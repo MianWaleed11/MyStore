@@ -1,5 +1,5 @@
 import * as React from 'react';
-const NotFound: React.FC = () => {
+export const NotFound: React.FC = () => {
     return ( 
         <div>
             <h1>
@@ -9,4 +9,4 @@ const NotFound: React.FC = () => {
      );
 }
  
-export default NotFound;
+ 

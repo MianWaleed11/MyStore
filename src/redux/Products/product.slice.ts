@@ -12,6 +12,7 @@ const initialState: IproductState = {
     image: "",
   },
   isLoading: false,
+  test:true,
 };
 
 export const product = createAsyncThunk(
@@ -44,6 +45,7 @@ const productReducer = createSlice({
       state.product.category = action.payload.category;
       state.product.price = action.payload.price;
        state.isLoading = false;
+       state.test=false
 
     },
     [product.rejected.toString()]: (state, action) => {

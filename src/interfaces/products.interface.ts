@@ -26,5 +26,6 @@ interface Iproduct{
 
   export interface IproductState{
     product:Iproduct,
-    isLoading:boolean
+    isLoading:boolean;
+    test:boolean
   }
