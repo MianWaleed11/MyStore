@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import ErrorBoundary from "./component/errors/ErrorBoundary";
+import {ErrorBoundary} from "./component";
 import IndexPage from "./pages/IndexPage";
 
 import NavBar from "./layout/navBar/NavBar";

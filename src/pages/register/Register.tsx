@@ -13,7 +13,6 @@ import { GoogleLogin } from "react-google-login";
 // 564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com client id
 // XES5AIFxRP1L3ePOTZUBAhSr secret
 
-// testing comment from awais
 const RegisterPage: React.FC = () => {
   let history = useHistory();
 
@@ -125,7 +124,7 @@ const RegisterPage: React.FC = () => {
             <div>
               <FacebookLogin
                 appId="848624172349220"
-                autoLoad={true}
+                autoLoad={false}
                 fields="name,email,picture"
                 callback={responseFacebook}
               />

@@ -1,13 +1,13 @@
 import React from "react";
-import { Carousel, CarouselItem } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import pic_1 from '../../assets/images/1448056_1920x1080.jpg'; 
 import pic_2 from '../../assets/images/carousal_image1_1920x1080.jpg'; 
 import pic_3 from '../../assets/images/qwqw.jpg'; 
 
 
-export interface CaroselProps {}
 
-const Carosel: React.FC<CaroselProps> = () => {
+
+export const Carosel: React.FC = () => {
   return (
     <Carousel>
       <Carousel.Item>
@@ -57,4 +57,4 @@ const Carosel: React.FC<CaroselProps> = () => {
   );
 };
 
-export default Carosel;
+
