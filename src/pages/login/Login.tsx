@@ -23,11 +23,11 @@ const Login: React.FC<LoginProps> = () => {
 
     try {
       let res = await axios.post(
-        "http://127.0.0.1:3000/api/users/signin",
+        "http://localhost:5000/api/users/login",
         data
       );
-      console.log(res.data.meta.token);
-      dispatch(Actions.setLogin(res.data.meta.token));
+      console.log(res.data.userId);
+      dispatch(Actions.setLogin(res.data.userId));
       history.replace("/");
     } catch (error) {
       console.log(error);

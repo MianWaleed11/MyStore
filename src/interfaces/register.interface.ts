@@ -1,6 +1,7 @@
 export interface ILoginData {
-  firstname: string;
+  name: string;
   lastname: string;
   email: string;
   password: string;
+  role: number;
 }
