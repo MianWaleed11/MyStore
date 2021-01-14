@@ -1,5 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
 import "./ProductsCards.css";
 import {IproductsCardsProps} from '../../../interfaces';
 

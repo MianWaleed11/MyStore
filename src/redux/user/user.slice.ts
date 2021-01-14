@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
 
 interface userState {
   token: string;
   isLoading: boolean;
+  isloggedIn: boolean;
 }
 
 const initialState: userState = {
   token: "",
   isLoading: false,
+  isloggedIn: false,
 };
 const userReducer = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    setToken: (state, action) => {
+    setLogin: (state, action) => {
+      console.log("from action======>", action);
       state.token = action.payload;
+      state.isloggedIn = true;
+    },
+    setLogout: (state, action) => {
+      console.log("from action======>", action);
+      state.token = "";
+      state.isloggedIn = false;
     },
   },
 });
@@ -59,6 +71,5 @@ const userReducer = createSlice({
 //     },
 //   },
 // });
-
 export default userReducer.reducer;
-export const { setToken } = userReducer.actions;
+export const { setLogin,setLogout } = userReducer.actions;

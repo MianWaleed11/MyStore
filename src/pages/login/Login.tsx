@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { LogInInterface } from "../../interfaces";
 import { loginSchema } from "../../validations/login.validation";
@@ -27,9 +27,11 @@ const Login: React.FC<LoginProps> = () => {
         data
       );
       console.log(res.data.meta.token);
-      dispatch(Actions.setToken(res.data.meta.token));
+      dispatch(Actions.setLogin(res.data.meta.token));
       history.replace("/");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>

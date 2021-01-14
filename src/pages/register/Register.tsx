@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "../../validations/login.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import * as Action from "../../redux/user/user.slice";
 const RegisterPage: React.FC = () => {
@@ -17,6 +18,48 @@ const RegisterPage: React.FC = () => {
   //   console.log(userState);
   // };
  
+=======
+import { useDispatch } from "react-redux";
+import "./register.css";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import * as Actions from "../../redux/user/user.slice";
+import FacebookLogin from "react-facebook-login";
+import { GoogleLogin } from "react-google-login";
+// 564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com client id
+// XES5AIFxRP1L3ePOTZUBAhSr secret
+const RegisterPage: React.FC = () => {
+  let history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(RegisterSchema),
+  });
+
+  const onSubmit = async (data: ILoginData) => {
+    try {
+      let res = await axios.post(
+        "http://127.0.0.1:3000/api/users/signup",
+        data
+      );
+      console.log(res.data.meta.token);
+      dispatch(Actions.setLogin(res.data.meta.token));
+      history.replace("/");
+    } catch (error) {}
+  };
+
+  const responseFacebook = (response: any) => {
+    console.log(response);
+  };
+  const responseGoogle = (response: any) => {
+    console.log(response);
+  };
+  const alreadyUser = () => {
+    history.push("/login");
+  };
+
+>>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
   return (
     <div>hello</div>
     // <div className="at-formholder">
@@ -146,6 +189,7 @@ const RegisterPage: React.FC = () => {
     //       </small>
     //     </div>
 
+<<<<<<< HEAD
     //     <div className="form-group">
     //       <label htmlFor="exampleInputEmail1">Lat</label>
     //       <input
@@ -211,7 +255,34 @@ const RegisterPage: React.FC = () => {
     //     </button>
     //   </form>
     // </div>
+=======
+            <div>
+              <label onClick={alreadyUser}>Already a User? Sign In</label>
+            </div>
+            <div>
+              <FacebookLogin
+                appId="848624172349220"
+                autoLoad={true}
+                fields="name,email,picture"
+                callback={responseFacebook}
+              />
+            </div>
+            <div>
+              <GoogleLogin
+                clientId="564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+>>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
   );
+  history.push("/products/${}");
 };
 
 export default RegisterPage;

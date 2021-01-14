@@ -10,6 +10,7 @@ import ProductDetails from "../pages/productsDetails/ProductDetail";
 export interface RoutesProps {}
 
 const Routes: React.FC<RoutesProps> = () => {
+  // test
   return (
     <>
       <Switch>

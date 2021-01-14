@@ -1,16 +1,23 @@
 import React from "react";
 import "./Navbar.css";
 import { NavLink, useHistory } from "react-router-dom";
-
-// import "./Navbar.css";
+import { useDispatch, useSelector } from "react-redux";
+import * as Actions from "../../redux/user/user.slice";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
-  let history = useHistory()
+  let history = useHistory();
+  const dispatch = useDispatch();
+  const isloggedIn = useSelector((state: any) => {
+    return state.userReducer.isloggedIn;
+  });
+  const setLogout = () => {
+    dispatch(Actions.setLogout(""));
+  };
   return (
     <nav className="navbar navbar-expand-lg">
-      <a className="navbar-brand" onClick={()=>history.push('/')}>
-       Awais's Store
+      <a className="navbar-brand" onClick={() => history.push("/")}>
+        Awais's Store
       </a>
       <button
         className="navbar-toggler"
@@ -25,17 +32,53 @@ const NavBar: React.FC<NavBarProps> = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Login
-            </a>
-          </li>
+          {console.log(isloggedIn)}
+          {isloggedIn ? (
+            <>
+              <div className="btn-group btn-profile">
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Profile
+                </button>
+                <div className="dropdown-menu">
+                  <a className="dropdown-item" href="#">
+                    Action
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a className="dropdown-item" href="#" onClick={setLogout}>
+                    Logout
+                  </a>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              </li>
 
+<<<<<<< HEAD
           <li className="nav-item">
             <NavLink className="nav-link" to='/register'>
               Register
             </NavLink>
           </li>
+=======
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">
+                  REGISTER
+                </NavLink>
+              </li>
+            </>
+          )}
+>>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input
