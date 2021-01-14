@@ -11,8 +11,8 @@ export const allProducts = createAsyncThunk(
   "allproducts/all",
   async (data, thunkApi) => {
     try {
-      const res: any = await productService.allProducts();
-      console.log("from create asyn================>", res.data);
+      const res: any = await productService.getAllProducts();
+     
       return res.data;
     } catch (err) {
       console.log(

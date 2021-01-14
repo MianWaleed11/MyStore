@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import { ProductsCards } from "../../component";
 import * as Actions from "../../redux";
-import { productService } from "../../services/product.service";
 
 export interface ProductsProps {}
 
@@ -22,6 +21,7 @@ const Products: React.FC<ProductsProps> = () => {
   let { type } = useParams<Itype>();
 
   useEffect(() => {
+   
     dispatch(Actions.Products(type));
   }, []);
 
@@ -42,8 +42,8 @@ const Products: React.FC<ProductsProps> = () => {
     dispatch(Actions.allProducts());
   };
 
-  const showdetails = () => {
-    history.push("/products/details");
+  const showdetails = (id: string) => {
+    history.push(`/products/${id}`);
   };
 
   const allProducts = allProductsReducer.allProducts.map(
@@ -51,7 +51,7 @@ const Products: React.FC<ProductsProps> = () => {
       return (
         <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
           <ProductsCards
-            showMore={showdetails}
+            showMore={() => showdetails(value.id)}
             category={value.category}
             image={value.image}
             title={value.title}

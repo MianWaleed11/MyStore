@@ -13,3 +13,18 @@ export interface IproductsState {
     allProducts:any[],
     isLoading:boolean,
   }
+
+
+interface Iproduct{
+  id:number;
+  title:string;
+  description:string;
+  price:number;
+  category:string;
+  image:string;
+}
+
+  export interface IproductState{
+    product:Iproduct,
+    isLoading:boolean
+  }

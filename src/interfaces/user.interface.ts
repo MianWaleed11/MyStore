@@ -1,5 +1,5 @@
-import { ILoginData } from "./login.interface";
+// import { ILoginData } from "./login.interface";
 export interface IuserState {
-    users: ILoginData[];
+    // users: ILoginData[];
     isLoading: boolean;
   }

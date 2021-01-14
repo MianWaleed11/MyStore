@@ -16,12 +16,11 @@ const Routes: React.FC<RoutesProps> = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={RegisterPage} />
         <Layout>
-          <Route exact path="/products/category/:type" component={Products} />
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/products/category/:type" component={Products} />
+          <Route exact path="/products/:id" component={ProductDetails} />
         </Layout>
-        <Route component={NotFound} />
-          <Route  exact path='/products/details' component={ProductDetails}  />
-       
+        {/* <Route component={NotFound} /> */}
       </Switch>
     </>
   );

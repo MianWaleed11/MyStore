@@ -12,7 +12,7 @@ const initialState: IcategoriesState = {
 
 export const allCategories: any = createAsyncThunk("categories/all", async () => {
   try {
-   const res:any=await productService.AllCategories();
+   const res:any=await productService.getAllCategories();
    return res.data;
   } catch (err) {
     console.log(err);

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productService } from "../../services/product.service";
-import {IproductsState} from '../../interfaces'
-
+import { IproductsState } from "../../interfaces";
 
 const initialState: IproductsState = {
   types: [],
@@ -11,7 +10,7 @@ export const Products = createAsyncThunk(
   "products/all",
   async (query: string, thunkApi) => {
     try {
-      const res: any = await productService.Products(query);
+      const res: any = await productService.getProducts(query);
       return res.data;
     } catch (err) {
       console.log(thunkApi.rejectWithValue("something wrong with api call"));
@@ -22,7 +21,9 @@ export const Products = createAsyncThunk(
 const ProductsReducer = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+ 
+  },
   extraReducers: {
     [Products.pending.toString()]: (state) => {
       console.log("pending");
@@ -35,5 +36,7 @@ const ProductsReducer = createSlice({
     },
   },
 });
+
+
 
 export default ProductsReducer.reducer;

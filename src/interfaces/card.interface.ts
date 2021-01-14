@@ -5,4 +5,5 @@ export interface IproductsCardsProps {
     price?: string;
     title?: string;
     showDetails?:()=>void
+    
   }
