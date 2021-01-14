@@ -1,8 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-<<<<<<< HEAD
-
-=======
->>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
 
 interface userState {
   token: string;

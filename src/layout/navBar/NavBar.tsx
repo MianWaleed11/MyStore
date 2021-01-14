@@ -64,13 +64,6 @@ const NavBar: React.FC<NavBarProps> = () => {
                 </NavLink>
               </li>
 
-<<<<<<< HEAD
-          <li className="nav-item">
-            <NavLink className="nav-link" to='/register'>
-              Register
-            </NavLink>
-          </li>
-=======
               <li className="nav-item">
                 <NavLink className="nav-link" to="/register">
                   REGISTER
@@ -78,7 +71,6 @@ const NavBar: React.FC<NavBarProps> = () => {
               </li>
             </>
           )}
->>>>>>> 385ba3c6a8f0f41ea46568eb952300ddf8bd42f4
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input

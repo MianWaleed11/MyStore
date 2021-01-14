@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { LogInInterface } from "../../interfaces";
+import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
 import axios from "axios";
 import * as Actions from "../../redux/user/user.slice";
