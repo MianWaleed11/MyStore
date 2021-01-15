@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Modal.css';
+import "./Modal.css";
 import { Button, Modal } from "react-bootstrap";
 export interface CartModalProps {
   show: boolean;
@@ -19,7 +19,7 @@ const CartModal: React.FC<CartModalProps> = (props) => {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className='modal_cart_image'>
+          <div className="modal_cart_image">
             <p>Added to Cart</p>
             <img
               src={props.productImage}
@@ -27,7 +27,7 @@ const CartModal: React.FC<CartModalProps> = (props) => {
               style={{ width: "50px", height: "50px" }}
             />
           </div>
-          <div className='subTotal'>
+          <div className="subTotal">
             <p> SubTotal:Subtotal here </p>
           </div>
         </Modal.Body>
