@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
@@ -12,6 +12,8 @@ interface Itype {
 }
 
 const Products: React.FC<ProductsProps> = () => {
+  const [disabled, setdisabled] = useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
@@ -21,14 +23,18 @@ const Products: React.FC<ProductsProps> = () => {
   let { type } = useParams<Itype>();
 
   useEffect(() => {
-   
     dispatch(Actions.Products(type));
   }, []);
+
+  const showdetails = (id: string, category: string) => {
+    history.push(`/products/${category}/${id}`);
+  };
 
   const products = productsReducer.types.map((product: any, index: number) => {
     return (
       <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
         <ProductsCards
+          showMore={() => showdetails(product.id, product.category)}
           category={product.category}
           image={product.image}
           title={product.title}
@@ -40,10 +46,7 @@ const Products: React.FC<ProductsProps> = () => {
 
   const loadMoreHandler = () => {
     dispatch(Actions.allProducts());
-  };
-
-  const showdetails = (id: string,category:string) => {
-    history.push(`/products/${category}/${id}`);
+    setdisabled(true);
   };
 
   const allProducts = allProductsReducer.allProducts.map(
@@ -51,7 +54,7 @@ const Products: React.FC<ProductsProps> = () => {
       return (
         <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
           <ProductsCards
-            showMore={() => showdetails(value.id,value.category)}
+            showMore={() => showdetails(value.id, value.category)}
             category={value.category}
             image={value.image}
             title={value.title}
@@ -71,6 +74,7 @@ const Products: React.FC<ProductsProps> = () => {
           <button
             className="btn btn-primary  btn-lg btn-block"
             onClick={loadMoreHandler}
+            disabled={disabled}
           >
             SHOW ALL CATEGORIES
           </button>
