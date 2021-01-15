@@ -2,7 +2,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
 import axios from "axios";
@@ -13,25 +13,29 @@ export interface LoginProps {}
 const Login: React.FC<LoginProps> = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-
+  let location = useLocation();
+  let  from:any  = location.state || { from: { pathname: "/" } };
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
 
+  const registerFirst =() =>{
+    history.replace("/register") 
+  }
   const onSubmit = async (data: LogInInterface) => {
     console.log(data);
-
-    try {
-      let res = await axios.post(
-        "http://localhost:5000/api/users/login",
-        data
-      );
-      console.log(res.data.userId);
-      dispatch(Actions.setLogin(res.data.userId));
-      history.replace("/");
-    } catch (error) {
-      console.log(error);
-    }
+    history.replace(from)
+    // try {
+    //   let res = await axios.post(
+    //     "http://localhost:5000/api/users/login",
+    //     data
+    //   );
+    //   console.log(res.data.userId);
+    //   dispatch(Actions.setLogin(res.data.userId));
+    //   history.replace("/");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <div>
@@ -75,6 +79,11 @@ const Login: React.FC<LoginProps> = () => {
             <button type="submit" className="btn btn-outline-primary">
               Log In
             </button>
+            <div>
+              <span onClick={registerFirst}>
+                New Here? Register First.
+              </span>
+            </div>
           </fieldset>
         </form>
       </div>

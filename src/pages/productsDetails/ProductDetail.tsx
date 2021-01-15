@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
@@ -19,16 +19,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
 
   const dispatch = useDispatch();
-
+  let histroy = useHistory();
   let { id, category } = useParams<Iid>();
 
+  const isloggedIn = useSelector((state: any) => {
+    return state.userReducer.isloggedIn;
+  });
   useEffect(() => {
     dispatch(Actions.product(id));
     dispatch(Actions.Products(category));
   }, []);
 
   const addCart = () => {
-    setshow(true);
+    // setshow(true);
+    isloggedIn ? histroy.push("/addtocart") : histroy.push("/login");
   };
 
   const handleClose = () => {
@@ -100,7 +104,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
         {/*  */}
 
-        <CartModal show={show} handleClose={handleClose}  productImage={productReducer.product.image}/>
+        <CartModal
+          show={show}
+          handleClose={handleClose}
+          productImage={productReducer.product.image}
+        />
       </Row>
     </Container>
   );
