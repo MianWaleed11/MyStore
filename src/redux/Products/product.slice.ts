@@ -11,7 +11,7 @@ const initialState: IproductState = {
     category: "",
     image: "",
   },
-  isLoading: false,
+  isLoading: true,
   test:true,
 };
 
@@ -23,7 +23,7 @@ export const product = createAsyncThunk(
     
       return res.data;
     } catch (err) {
-      console.log(thunkApi.rejectWithValue("error in single products api"));
+      console.log(thunkApi.rejectWithValue("error in single products api: Single Product"));
     }
   }
 );
