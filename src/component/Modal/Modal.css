@@ -1,0 +1,9 @@
+.modal_cart_image{
+    width: 50%;
+    float: left;
+ 
+}
+.subTotal{
+    width: 50%;
+    float: right;
+}

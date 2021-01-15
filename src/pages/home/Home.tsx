@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Row from "react-bootstrap/Row";
+import { Row, Spinner } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import * as Action from "../../redux/categories/slice";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import "./home.css";
 import commerece_pic from "../../assets/images/ecommerce-case-studies.png";
 import character_pic from "../../assets/images/tyson-avatar.webp";
+import { IcategoriesState } from "../../interfaces";
 
 let img: string;
 
@@ -29,7 +30,9 @@ const HomePage: React.FC = () => {
    */
   const history = useHistory();
   const dispatch = useDispatch();
-  const categoriesState = useSelector((state: any) => state.CategoriesReducer);
+  const categoriesState: IcategoriesState = useSelector(
+    (state: any) => state.CategoriesReducer
+  );
 
   /**
    *
@@ -67,11 +70,12 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Carosel />
-      {/* wraper */}
+      {/* ------------------wraper--------------------------------- */}
       <Container fluid style={{ backgroundColor: "#ebeeef" }} className="mt-5 ">
         <h3 className="text-capitalize text-dark pt-2 text-center">
           ALL CATEGORIES
         </h3>
+        {console.log(categoriesState.isLoading)}
         {/* <hr className /> */}
 
         <Row>{categories}</Row>

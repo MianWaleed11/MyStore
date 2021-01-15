@@ -5,7 +5,7 @@ export interface IproductsState {
 
   export interface IcategoriesState {
     categories: any[];
-    isLoading: boolean;
+    isLoading: boolean|undefined;
     
   }
 
