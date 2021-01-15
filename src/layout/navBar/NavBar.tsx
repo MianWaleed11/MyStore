@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import {Cart} from 'react-bootstrap-icons'
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/user.slice";
@@ -66,9 +67,15 @@ const NavBar: React.FC<NavBarProps> = () => {
                 </NavLink>
               </li>
 
+
               <li className="nav-item">
                 <NavLink className="nav-link" to="/register">
-                  REGISTER
+                  Register
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  <Cart size={30} />
                 </NavLink>
               </li>
             </>

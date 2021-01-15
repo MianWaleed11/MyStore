@@ -1,23 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "../../services/product.service";
-import {IcategoriesState} from '../../interfaces'
-
+import { IcategoriesState } from "../../interfaces";
 
 const initialState: IcategoriesState = {
   categories: [],
   isLoading: false,
-
 };
 
-
-export const allCategories: any = createAsyncThunk("categories/all", async () => {
-  try {
-   const res:any=await productService.getAllCategories();
-   return res.data;
-  } catch (err) {
-    console.log(err);
+export const allCategories: any = createAsyncThunk(
+  "categories/all",
+  async () => {
+    try {
+      const res: any = await productService.getAllCategories();
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 const CategoriesReducer = createSlice({
   name: "categories",
@@ -29,12 +29,12 @@ const CategoriesReducer = createSlice({
     },
     [allCategories.fulfilled]: (state, action) => {
       state.categories = action.payload;
-      state.isLoading=false;
+      state.isLoading = false;
     },
-    [allCategories.rejected]:(state,action)=>{
-      console.log(action.payload)
-    }
+    [allCategories.rejected]: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
 
-export default CategoriesReducer.reducer
+export default CategoriesReducer.reducer;

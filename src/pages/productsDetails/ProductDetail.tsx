@@ -1,34 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
+import CartModal from "../../component/Modal/Modal";
 
 export interface ProductDetailsProps {}
 
 interface Iid {
   id: string;
-  category:string
+  category: string;
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = () => {
+  const [show, setshow] = useState(false);
+
   const productReducer = useSelector((state: any) => state.productReducer);
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
 
   const dispatch = useDispatch();
 
-  let { id,category } = useParams<Iid>();
+  let { id, category } = useParams<Iid>();
 
   useEffect(() => {
     dispatch(Actions.product(id));
-     dispatch(Actions.Products(category));
+    dispatch(Actions.Products(category));
   }, []);
 
- 
+  const addCart = () => {
+    setshow(true);
+  };
+
+  const handleClose = () => {
+    setshow(false);
+  };
 
   const response = productsReducer.types.map((v: any, i: number) => {
-    
-
     return (
       <div className="card-body" key={i}>
         <span
@@ -58,6 +65,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   return (
     <Container fluid>
       <Row>
+        {/*  */}
         {console.log("rendering")}
         <div className="col-md-4 col-sm-12">
           <img
@@ -74,7 +82,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
           <small>{productReducer.product.description}</small>
           <br />
           <br />
-          <button className="  btn btn-outline-warning">ADD TO CART</button>
+          <button className="btn btn-outline-warning" onClick={addCart}>
+            ADD TO CART
+          </button>
         </div>
         <div className="col-md-4 col-sm-12">
           <div
@@ -89,6 +99,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         </div>
 
         {/*  */}
+
+        <CartModal show={show} handleClose={handleClose}  productImage={productReducer.product.image}/>
       </Row>
     </Container>
   );
