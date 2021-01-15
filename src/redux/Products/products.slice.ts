@@ -13,7 +13,7 @@ export const Products = createAsyncThunk(
       const res: any = await productService.getProducts(query);
       return res.data;
     } catch (err) {
-      console.log(thunkApi.rejectWithValue("something wrong with api call"));
+      console.log(thunkApi.rejectWithValue("something wrong with api call: All Product"));
     }
   }
 );
