@@ -23,6 +23,7 @@ const RegisterPage: React.FC = () => {
   });
 
   const onSubmit = async (data: ILoginData) => {
+    console.log(data)
     try {
       let res = await axios.post(
         "http://localhost:5000/api/users/register",
