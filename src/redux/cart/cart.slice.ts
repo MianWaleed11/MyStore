@@ -16,7 +16,7 @@ export const AddToCart = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const res: any = await user1Service;
-
+      console.log(res.data);
       return res;
     } catch (err) {
       console.log(thunkApi.rejectWithValue("error in hitting all cart api"));
@@ -37,6 +37,7 @@ const cartReducer = createSlice({
     [AddToCart.fulfilled.toString()]: (state, action) => {
       state.data = action.payload;
       state.isLoading = false;
+      
     },
 
     [AddToCart.rejected.toString()]: (state, action) => {

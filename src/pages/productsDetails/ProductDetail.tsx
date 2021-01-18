@@ -5,6 +5,7 @@ import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
 import { Http1Service } from "../../services/cart.service";
+import axios from "axios";
 
 export interface ProductDetailsProps {}
 interface Iid {
@@ -41,7 +42,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const addCart = () => {
     if (isloggedIn) {
       Http1Service.setToken(userReducer.token);
-      dispatch(Actions.AddToCart());
+      // dispatch(Actions.AddToCart());
+      // axios.get('http://localhost:5000/api/users/login').then(res=>res.json())
+      // .then(res=>console.log(res));
       history.push('/addtocart');
     } else {
       history.push("/login");
