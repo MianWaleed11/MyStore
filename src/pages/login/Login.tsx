@@ -2,29 +2,27 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
-import { useHistory,useLocation } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
-import axios from "axios";
-import * as Actions from "../../redux/user/user.slice";
+import { LoginProps } from "../../interfaces";
 import "./login.css";
-export interface LoginProps {}
-
+interface temp {
+  from: string;
+}
 const Login: React.FC<LoginProps> = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  let location = useLocation();
-  let  from:any  = location.state || { from: { pathname: "/" } };
+  let { from } = useParams<temp>();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
 
-  const registerFirst =() =>{
-    history.replace("/register") 
-  }
+  const registerFirst = () => {
+    history.replace("/register");
+  };
   const onSubmit = async (data: LogInInterface) => {
     console.log(data);
-    history.replace(from)
     // try {
     //   let res = await axios.post(
     //     "http://localhost:5000/api/users/login",
@@ -80,9 +78,7 @@ const Login: React.FC<LoginProps> = () => {
               Log In
             </button>
             <div>
-              <span onClick={registerFirst}>
-                New Here? Register First.
-              </span>
+              <span onClick={registerFirst}>New Here? Register First.</span>
             </div>
           </fieldset>
         </form>

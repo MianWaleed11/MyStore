@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
 
 export interface ProductDetailsProps {}
-
 interface Iid {
   id: string;
   category: string;
@@ -21,6 +20,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
   const dispatch = useDispatch();
   let histroy = useHistory();
+  let location = useLocation();
   let { id, category } = useParams<Iid>();
 
   const isloggedIn = useSelector((state: any) => {
@@ -31,16 +31,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   }, []);
 
   useEffect(() => {
-    if(p.category){
-      dispatch(Actions.Products(productReducer.product.category));      
+    if (p.category) {
+      dispatch(Actions.Products(productReducer.product.category));
     }
   }, [p]);
 
   const addCart = () => {
     // setshow(true);
-    isloggedIn ? histroy.push("/addtocart") : histroy.push("/login");
+    // isloggedIn?
+       histroy.push("/addtocart")
+    //   : histroy.push(`/login/:${location.pathname}`);
+    console.log(location.pathname);
+    //:  histroy.push("/login");
   };
-  console.log('inside');
+  console.log("inside");
   const handleClose = () => {
     setshow(false);
   };
