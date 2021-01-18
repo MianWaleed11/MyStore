@@ -1,7 +1,24 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
+  const isloggedIn = useSelector((state: any) => {
+    return state.userReducer.isloggedIn;
+  });
+
+//   if (isloggedIn===false) {
+//     // user not logged in
+//     return (
+//       <Redirect
+//         to={{
+//           pathname: "/login",
+//           state: { next: routeProps.location.pathname }
+//         }}
+//       />
+//     );
+//   }
   return (
     <div>
       <table className="table">
@@ -39,8 +56,7 @@ const AddToCart: React.FC<AddToCartProps> = () => {
         </tbody>
       </table>
       <div>
-          <p>Subtotal:Amount</p>
-
+        <p>Subtotal:Amount</p>
       </div>
     </div>
   );
