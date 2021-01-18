@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
+  
+  
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
@@ -23,6 +25,7 @@ const AddToCart: React.FC<AddToCartProps> = () => {
     <div>
       <table className="table">
         <thead className="thead-dark">
+
           <tr>
             <th scope="col">#</th>
             <th scope="col">Product Name</th>

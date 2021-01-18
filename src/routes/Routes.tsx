@@ -16,7 +16,7 @@ const Routes: React.FC<RoutesProps> = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/login/:from" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={RegisterPage} />
         <Layout>
           <Route exact path="/products/:type" component={Products} />

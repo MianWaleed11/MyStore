@@ -7,6 +7,9 @@ import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
 import { LoginProps } from "../../interfaces";
 import "./login.css";
+import * as Actions from '../../redux'
+import axios from 'axios';
+
 interface temp {
   from: string;
 }
@@ -23,17 +26,17 @@ const Login: React.FC<LoginProps> = () => {
   };
   const onSubmit = async (data: LogInInterface) => {
     console.log(data);
-    // try {
-    //   let res = await axios.post(
-    //     "http://localhost:5000/api/users/login",
-    //     data
-    //   );
-    //   console.log(res.data.userId);
-    //   dispatch(Actions.setLogin(res.data.userId));
-    //   history.replace("/");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      let res = await axios.post(
+        "http://localhost:5000/api/users/login",
+        data
+      );
+      console.log(res.data.userId);
+      dispatch(Actions.setLogin(res.data.userId));
+      history.replace("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>

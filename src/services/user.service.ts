@@ -5,5 +5,7 @@ class UserService extends HttpService {
 
   createUser = (data: ILoginData): Promise<any> =>
     this.post(`${this.prefix}`, data);
+
+  
 }
 export const userService = new UserService();
