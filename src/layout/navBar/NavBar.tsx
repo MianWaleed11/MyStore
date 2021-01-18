@@ -35,7 +35,6 @@ const NavBar: React.FC<NavBarProps> = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-          {console.log(isloggedIn)}
           {isloggedIn ? (
             <>
               <div className="btn-group btn-profile">
@@ -66,22 +65,22 @@ const NavBar: React.FC<NavBarProps> = () => {
                   Login
                 </NavLink>
               </li>
-
+              {/* 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/register">
                   Register
                 </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/">
-                  <Cart size={30} />{" "}
-                  <span className="badge badge-warning" id="badge_icon">
-                    5
-                  </span>
-                </NavLink>
-              </li>
+              </li> */}
             </>
           )}
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/">
+              <Cart size={30} />{" "}
+              <span className="badge badge-warning" id="badge_icon">
+                5
+              </span>
+            </NavLink>
+          </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input

@@ -38,11 +38,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
   const addCart = () => {
     // setshow(true);
-    // isloggedIn?
-       histroy.push("/addtocart")
-    //   : histroy.push(`/login/:${location.pathname}`);
-    console.log(location.pathname);
-    //:  histroy.push("/login");
+    if (isloggedIn === true) {
+      histroy.push("/addtocart");
+    } else {
+      dispatch(Actions.setPath(location.pathname));
+      console.log(location.pathname);
+      histroy.push("/login");
+    }
   };
   console.log("inside");
   const handleClose = () => {

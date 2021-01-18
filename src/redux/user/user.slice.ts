@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface userState {
+export interface userState {
   token: string;
   isLoading: boolean;
   isloggedIn: boolean;
+  redirectPath: string;
 }
 
 const initialState: userState = {
   token: "",
   isLoading: false,
   isloggedIn: false,
+  redirectPath: "/",
 };
 const userReducer = createSlice({
   name: "user",
@@ -24,6 +26,11 @@ const userReducer = createSlice({
       console.log("from action======>", action);
       state.token = "";
       state.isloggedIn = false;
+      state.redirectPath = "/";
+    },
+    setPath: (state, action) => {
+      console.log("from action======>", action);
+      state.redirectPath = action.payload;
     },
   },
 });
@@ -68,4 +75,4 @@ const userReducer = createSlice({
 //   },
 // });
 export default userReducer.reducer;
-export const { setLogin,setLogout } = userReducer.actions;
+export const { setLogin, setLogout, setPath } = userReducer.actions;
