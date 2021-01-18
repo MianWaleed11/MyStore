@@ -33,7 +33,7 @@ const CartModal: React.FC<CartModalProps> = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={props.handleClose}>
-            Cart
+                 View Cart
           </Button>
           <Button variant="warning" onClick={props.handleClose}>
             Proceed To Checkout
