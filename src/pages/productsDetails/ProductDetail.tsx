@@ -4,6 +4,8 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
+import { Http1Service } from "../../services/cart.service";
+import axios from "axios";
 
 export interface ProductDetailsProps {}
 interface Iid {
@@ -17,9 +19,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const productReducer = useSelector((state: any) => state.productReducer);
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
   const p = useSelector((state: any) => state.productReducer.product);
+  const userReducer = useSelector((state: any) => state.userReducer);
 
   const dispatch = useDispatch();
-  let histroy = useHistory();
+  let history = useHistory();
   let location = useLocation();
   let { id, category } = useParams<Iid>();
 
@@ -39,16 +42,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const addCart = () => {
     // setshow(true);
     if (isloggedIn === true) {
-      histroy.push("/addtocart");
+      Http1Service.setToken(userReducer.token);
+
+      history.push("/addtocart");
     } else {
       dispatch(Actions.setPath(location.pathname));
       console.log(location.pathname);
-      histroy.push("/login");
+      history.push("/login");
     }
   };
-  console.log("inside");
+
   const handleClose = () => {
     setshow(false);
+  };
+
+  const redirecToCart = () => {
+    history.push("/addtocart");
   };
 
   const response = productsReducer.types.map((v: any, i: number) => {
@@ -126,6 +135,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
             <CartModal
               show={show}
               handleClose={handleClose}
+              redirectToCart={redirecToCart}
               productImage={productReducer.product.image}
             />
           </Row>

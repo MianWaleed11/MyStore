@@ -25,12 +25,11 @@ const RegisterPage: React.FC = () => {
   const onSubmit = async (data: ILoginData) => {
     console.log(data)
     try {
-      let res = await axios.post(
-        "http://localhost:5000/api/users/register",
-        data
-      );
+      await axios.post("http://localhost:5000/api/users/register", data);
       history.replace("/login");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const responseFacebook = (response: any) => {

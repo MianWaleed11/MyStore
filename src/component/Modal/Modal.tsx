@@ -6,6 +6,8 @@ export interface CartModalProps {
   handleClose:
     | ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
+    redirectToCart: | ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
+    | undefined;
   productImage: string;
 }
 
@@ -32,7 +34,7 @@ const CartModal: React.FC<CartModalProps> = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={props.handleClose}>
+          <Button variant="primary" onClick={props.redirectToCart}>
                  View Cart
           </Button>
           <Button variant="warning" onClick={props.handleClose}>
