@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Row, Spinner } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import * as Action from "../../redux/categories/slice";
+import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import women_jacket from "../../assets/images/pretty-young-stylish-sexy-woman-pink-luxury-dress-summer-fashion-trend-chic-style-sunglasses-blue-studio-background-shopping-holding-paper-bags-talking-mobile-phone-shopaholic_285396-2957.jpg";
 import men_jacket from "../../assets/images/jacket-men-s-jackets-men-s-jacket-winter-jackets (1)qwqwq.jpg";
@@ -13,7 +13,6 @@ import { useHistory } from "react-router-dom";
 import "./home.css";
 import commerece_pic from "../../assets/images/ecommerce-case-studies.png";
 import character_pic from "../../assets/images/tyson-avatar.webp";
-import { IcategoriesState } from "../../interfaces";
 
 let img: string;
 
@@ -21,51 +20,59 @@ const HomePage: React.FC = () => {
   /**
    * react hooks
    */
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(Action.allCategories());
+    dispatch(Actions.Products());
   }, []);
 
   /**
    * hooks
    */
   const history = useHistory();
-  const dispatch = useDispatch();
-  const categoriesState: IcategoriesState = useSelector(
-    (state: any) => state.CategoriesReducer
-  );
+  const ProductsReducer = useSelector((state: any) => state.ProductsReducer);
 
   /**
    *
-   * @param type
+   * @param category
    * show products on other page and its categories
    */
 
-  const show = (type: string): void => {
-    history.push(`/products/${type}`);
+  const show = (category: string): void => {
+    history.push(`/products/${category}`);
   };
 
-  const categories = categoriesState.categories.map(
-    (category: any, i: number) => {
-      if (category === "jewelery") {
-        img = jewelery;
-      } else if (category === "electronics") {
-        img = electrons;
-      } else if (category === "men clothing") {
-        img = men_jacket;
-      } else {
-        img = women_jacket;
-      }
-      return (
-        <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={i}>
-          <ProductsCards
-            category={category}
-            image={img}
-            showMore={() => show(category)}
-          />
-        </div>
-      );
+
+  
+  const seen = new Set();
+  const filteredArr = ProductsReducer.products.filter((el: any) => {
+    const duplicate = seen.has(el.category);
+    seen.add(el.category);
+    return !duplicate;
+  });
+  console.log(filteredArr);
+
+  const categories = filteredArr.map((product: any, i: number) => {
+    if (product.category === "jewelery") {
+      img = jewelery;
+    } else if (product.category === "electronics") {
+      img = electrons;
+    } else if (product.category === "men clothing") {
+      img = men_jacket;
+    } else {
+      img = women_jacket;
     }
-  );
+    return (
+      <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={i}>
+        <ProductsCards
+          category={product.category}
+          image={img}
+          showMore={() => show(product.category)}
+        />
+      </div>
+    );
+  });
 
   return (
     <>
@@ -75,7 +82,7 @@ const HomePage: React.FC = () => {
         <h3 className="text-capitalize text-dark pt-2 text-center">
           ALL CATEGORIES
         </h3>
-        {console.log(categoriesState.isLoading)}
+        {/* {console.log(categoriesState.isLoading)} */}
         {/* <hr className /> */}
 
         <Row>{categories}</Row>

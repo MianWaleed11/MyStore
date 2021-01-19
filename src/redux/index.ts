@@ -4,3 +4,4 @@ export * from './categories/slice';
 export * from './Products/product.slice';
 export * from './cart/cart.slice';
 export * from './user/user.slice';
+export * from './Products/productById.slice';

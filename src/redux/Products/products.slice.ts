@@ -3,33 +3,36 @@ import { productService } from "../../services/product.service";
 import { IproductsState } from "../../interfaces";
 
 const initialState: IproductsState = {
-  types: [],
+  isLoading: false,
+  products: [],
 };
 
 export const Products = createAsyncThunk(
   "products/all",
-  async (query: string, thunkApi) => {
+  async (data, thunkApi) => {
     try {
-      const res: any = await productService.getProducts(query);
-      return res.data;
+      const res: any = await productService.getProducts();
+      return res.data.products
+      
     } catch (err) {
-      console.log(thunkApi.rejectWithValue("something wrong with api call: All Product"));
+      console.log(
+        thunkApi.rejectWithValue("something wrong with api call: All Product")
+      );
     }
   }
 );
 
-const ProductsReducer = createSlice({
+const productsReducer = createSlice({
   name: "products",
   initialState,
-  reducers: {
- 
-  },
+  reducers: {},
   extraReducers: {
     [Products.pending.toString()]: (state) => {
-      console.log("pending");
+      state.isLoading = true;
     },
     [Products.fulfilled.toString()]: (state, action) => {
-      state.types = action.payload;
+      state.products = action.payload;
+      state.isLoading = false;
     },
     [Products.rejected.toString()]: (state, action) => {
       console.log(action.payload);
@@ -37,6 +40,4 @@ const ProductsReducer = createSlice({
   },
 });
 
-
-
-export default ProductsReducer.reducer;
+export default productsReducer.reducer;

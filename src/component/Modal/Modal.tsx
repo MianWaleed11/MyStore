@@ -9,6 +9,7 @@ export interface CartModalProps {
     redirectToCart: | ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   productImage: string;
+  
 }
 
 const CartModal: React.FC<CartModalProps> = (props) => {

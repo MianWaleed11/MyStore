@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProductsCards.css";
 import { IproductsCardsProps } from "../../../interfaces";
-import ReactPlaceholder from "react-placeholder";
+
 
 export const ProductsCards: React.FC<IproductsCardsProps> = (props) => {
   return (
