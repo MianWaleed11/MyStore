@@ -24,26 +24,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   let location = useLocation();
-  let { id, category } = useParams<Iid>();
+  let { id } = useParams<Iid>();
 
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
+
+  
   useEffect(() => {
-    dispatch(Actions.product(id));
+    dispatch(Actions.getProductById(id));
   }, []);
 
-  useEffect(() => {
-    if (p.category) {
-      dispatch(Actions.Products(productReducer.product.category));
-    }
-  }, [p]);
+  // useEffect(() => {
+  //   if (p.category) {
+  //     dispatch(Actions.Products(productReducer.product.category));
+  //   }
+  // }, [p]);
 
   const addCart = () => {
     // setshow(true);
     if (isloggedIn === true) {
       Http1Service.setToken(userReducer.token);
-
+      axios
+        .get(`http://localhost:5000/api/users/login?productId=9&quantity=1`)
+        // .then((res) => res.json())
+        .then((res) => console.log(res));
       history.push("/addtocart");
     } else {
       dispatch(Actions.setPath(location.pathname));
@@ -60,32 +65,32 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     history.push("/addtocart");
   };
 
-  const response = productsReducer.types.map((v: any, i: number) => {
-    return (
-      <div className="card-body" key={i}>
-        <span
-          className="product_image"
-          style={{
-            float: "left",
-            backgroundColor: "red",
-          }}
-        >
-          <img src={v.image} alt="product" width="80px" height="56px" />
-        </span>
-        <span
-          className="product_details"
-          style={{
-            float: "right",
-            border: "1px solid red",
-            width: "190px",
-            height: "56px",
-          }}
-        >
-          <small>{v.title}</small>
-        </span>
-      </div>
-    );
-  });
+  // const response = productsReducer.types.map((v: any, i: number) => {
+  //   return (
+  //     <div className="card-body" key={i}>
+  //       <span
+  //         className="product_image"
+  //         style={{
+  //           float: "left",
+  //           backgroundColor: "red",
+  //         }}
+  //       >
+  //         <img src={v.image} alt="product" width="80px" height="56px" />
+  //       </span>
+  //       <span
+  //         className="product_details"
+  //         style={{
+  //           float: "right",
+  //           border: "1px solid red",
+  //           width: "190px",
+  //           height: "56px",
+  //         }}
+  //       >
+  //         <small>{v.title}</small>
+  //       </span>
+  //     </div>
+  //   );
+  // });
 
   return (
     <>
@@ -116,7 +121,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
               </button>
             </div>
 
-            {productReducer.isLoading === false && (
+            {/* {productReducer.isLoading === false && (
               <div className="col-md-4 col-sm-12">
                 <div
                   className="card text-dark"
@@ -128,7 +133,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/*  */}
 

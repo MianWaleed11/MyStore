@@ -1,5 +1,7 @@
 export interface IproductsState {
-    types: any[];
+    products: any[];
+    isLoading:boolean;
+    
   };
 
 

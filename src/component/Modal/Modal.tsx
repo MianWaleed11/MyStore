@@ -10,6 +10,7 @@ export interface CartModalProps {
     | ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   productImage: string;
+  
 }
 
 const CartModal: React.FC<CartModalProps> = (props) => {
