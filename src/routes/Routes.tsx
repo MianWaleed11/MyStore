@@ -21,15 +21,13 @@ const Routes: React.FC<RoutesProps> = () => {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/uploadProduct" component={UploadProduct} />
         <Layout>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/products/:category" component={Products} />
-
-        <Route
+          <Route exact path="/products/:type" component={Products} />
+          <Route exact path="/" component={HomePage} />
+          <Route
             exact
-            path="/productDetail/:_id"
+            path="/products/:category/:id"
             component={ProductDetails}
           />
-         
           <Route exact path="/addtocart" component={AddToCart} />
         </Layout>
         <Route component={NotFound} />

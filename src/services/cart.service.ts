@@ -1,7 +1,7 @@
 import axios, { CancelTokenStatic, CancelTokenSource } from "axios";
-const Config = process.env.REACT_APP_BASE_URL;
+const Config = process.env.REACT_APP_ADD_TO_CART_URL;
 
-export class HttpService {
+export class Http1Service {
   CancelToken: CancelTokenStatic;
   source: CancelTokenSource;
 
