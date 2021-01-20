@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import { Cart } from "react-bootstrap-icons";
+import { Cart, Upload } from "react-bootstrap-icons";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/loginUser.slice";
@@ -18,6 +18,15 @@ const NavBar: React.FC<NavBarProps> = () => {
     return state.addToCartReducer;
   });
 
+  let uploadTo: string = "";
+  {
+    isloggedIn ? (uploadTo = "/uploadProduct") : (uploadTo = "/login");
+  }
+
+  let cartTo: string = "";
+  {
+    isloggedIn ? (cartTo = "/addtocart") : (cartTo = "/login");
+  }
   const setLogout = async () => {
     await axios.get("http://localhost:5000/api/users/logout");
     dispatch(Actions.setLogout(""));
@@ -78,6 +87,11 @@ const NavBar: React.FC<NavBarProps> = () => {
               </li> */}
             </>
           )}
+          <li className="nav-item">
+            <NavLink className="nav-link" to={uploadTo}>
+              <Upload size={25} />
+            </NavLink>
+          </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/">
               <Cart size={30} />{" "}

@@ -7,9 +7,10 @@ class UserService extends HttpService {
   createUser = (data: ILoginData): Promise<any> =>
     this.post(`${this.prefix}`, data);
 
-    loginUser=(data:LogInInterface):Promise<any>=>this.post(`${this.prefix}/login`,data);
-  getUserCartInfo=():Promise<any>=>this.get(`${this.prefix}/userCartInfo`)
-    addToCart=(id:string):Promise<any>=>this.get(`${this.prefix}/addToCart?productId=${id}&quantity=3`)
-  
+  loginUser = (data: LogInInterface): Promise<any> =>
+    this.post(`${this.prefix}/login`, data);
+  getUserCartInfo = (): Promise<any> => this.get(`${this.prefix}/userCartInfo`);
+  addToCart = (id: string): Promise<any> =>
+    this.get(`${this.prefix}/addToCart?productId=${id}&quantity=3`);
 }
 export const userService = new UserService();
