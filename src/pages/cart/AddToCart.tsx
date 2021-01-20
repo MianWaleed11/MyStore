@@ -18,7 +18,9 @@ const AddToCart: React.FC<AddToCartProps> = () => {
             <th scope="col">Product Name</th>
             <th scope="col">Price</th>
             <th scope="col">-</th>
-            <th scope="col">Number</th>
+            <th scope="col">
+              
+            </th>
             <th scope="col">+</th>
             <th scope="col">Delete</th>
             <th scope="col">Total Price</th>
