@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Cart, CloudUpload, Upload } from "react-bootstrap-icons";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as Actions from "../../redux/user/user.slice";
+import * as Actions from "../../redux/user/loginUser.slice";
 import axios from "axios";
 export interface NavBarProps {}
 
@@ -13,6 +13,11 @@ const NavBar: React.FC<NavBarProps> = () => {
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
+
+  const addToCartReducer = useSelector((state: any) => {
+    return state.addToCartReducer;
+  });
+
   const setLogout = async () => {
     await axios.get("http://localhost:5000/api/users/logout");
     dispatch(Actions.setLogout(""));
@@ -95,7 +100,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             <NavLink className="nav-link" to={cartTo}>
               <Cart size={30} />{" "}
               <span className="badge badge-warning" id="badge_icon">
-                5
+                {addToCartReducer.data.length}
               </span>
             </NavLink>
           </li>
