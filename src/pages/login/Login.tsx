@@ -8,8 +8,8 @@ import { loginSchema } from "../../validations/login.validation";
 import { LoginProps } from "../../interfaces";
 import "./login.css";
 import * as Actions from "../../redux";
-import { userState } from "../../redux/user/user.slice";
 import axios from "axios";
+import { HttpService } from "../../services/base.service";
 interface temp {
   from: string;
 }
@@ -24,19 +24,28 @@ const Login: React.FC<LoginProps> = () => {
     (state: any) => state.userReducer.redirectPath
   );
 
+ const userReducer=useSelector((state:any)=>state.userReducer)
+
+
+
   const registerFirst = () => {
     history.replace("/register");
   };
-  const onSubmit = async (data: LogInInterface) => {
-    console.log(data);
-    try {
-      let res = await axios.post("http://localhost:5000/api/users/login", data);
-      console.log(path);
-      dispatch(Actions.setLogin(res.data.userId));
+  const onSubmit =  (data: LogInInterface) => {
+    
+    
+      // let res = await axios.post("http://localhost:5000/api/users/login", data);
+      // console.log(path);
+      // dispatch(Actions.setLogin(res.data.userId));
+      dispatch(Actions.loginUser(data))
+      
       history.replace(path);
-    } catch (error) {
-      console.log(error);
-    }
+      // HttpService.setToken(token)
+      console.log('token================>',userReducer.token);
+
+      //  catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <div>
