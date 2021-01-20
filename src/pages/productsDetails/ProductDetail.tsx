@@ -39,14 +39,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     dispatch(Actions.Products());
   }, []);
 
-  // let category:any;
 
-  // if(category===undefined){
-  //   category='jewellery'
-  // }
-  // else{
-  //   category = productByIdReducer.product[0].category;
-  // }
 
   const filteredArray = productsReducer.products.filter((v: any, i: number) => {
     return v.category === productByIdReducer.category;

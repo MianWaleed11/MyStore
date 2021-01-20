@@ -6,7 +6,7 @@ import AllProductsReducer from "./Products/allProducts.slice";
 import productReducer  from './Products/product.slice';
 import addToCartReducer from './user/addtocart.slice';
 import productByIdReducer from './Products/productById.slice';
-
+import userCartInfoReducer from './user/userCartInfo.slice';
 
 export const rootReducer = combineReducers({
   CategoriesReducer,
@@ -15,6 +15,7 @@ export const rootReducer = combineReducers({
   AllProductsReducer,
   productReducer,
   addToCartReducer,
-  productByIdReducer
+  productByIdReducer,
+  userCartInfoReducer
 
 });

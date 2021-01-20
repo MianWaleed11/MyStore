@@ -8,7 +8,7 @@ class UserService extends HttpService {
     this.post(`${this.prefix}`, data);
 
     loginUser=(data:LogInInterface):Promise<any>=>this.post(`${this.prefix}/login`,data);
-
+  getUserCartInfo=():Promise<any>=>this.get(`${this.prefix}/userCartInfo`)
     addToCart=(id:string):Promise<any>=>this.get(`${this.prefix}/addToCart?productId=${id}&quantity=3`)
   
 }

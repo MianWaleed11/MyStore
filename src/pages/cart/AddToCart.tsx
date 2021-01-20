@@ -1,14 +1,30 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import * as Actions from '../../redux';
+import { HttpService } from "../../services/base.service";
+
+
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
-  
-  
+ 
+  const dispatch =useDispatch();
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
+
+  const userreducer = useSelector((state: any) => {
+    return state.userReducer;
+  });
+
+  useEffect(()=>{
+    // HttpService.setToken(userreducer.token)
+dispatch(Actions.userCartInfo())
+  },[])
+
+
+ 
 
 //   if (isloggedIn===false) {
 //     // user not logged in
