@@ -8,7 +8,6 @@ import { NotFound } from "../component";
 import Login from "../pages/login/Login";
 import ProductDetails from "../pages/productsDetails/ProductDetail";
 import AddToCart from "../pages/cart/AddToCart";
-import UploadProduct from "../pages/uploadProduct/UploadProduct";
 
 export interface RoutesProps {}
 
@@ -19,15 +18,16 @@ const Routes: React.FC<RoutesProps> = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/uploadProduct" component={UploadProduct} />
         <Layout>
-          <Route exact path="/products/:type" component={Products} />
-          <Route exact path="/" component={HomePage} />
-          <Route
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/products/:category" component={Products} />
+
+        <Route
             exact
-            path="/products/:category/:id"
+            path="/productDetail/:_id"
             component={ProductDetails}
           />
+         
           <Route exact path="/addtocart" component={AddToCart} />
         </Layout>
         <Route component={NotFound} />
