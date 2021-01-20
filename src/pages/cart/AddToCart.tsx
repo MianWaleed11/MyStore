@@ -1,18 +1,47 @@
-import React from "react";
-import "./addToCart.css";
+import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PayPalButton } from "react-paypal-button-v2";
+import { Redirect } from "react-router-dom";
+import * as Actions from '../../redux';
+import { HttpService } from "../../services/base.service";
+
+
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
+ 
+  const dispatch =useDispatch();
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
 
+  const userreducer = useSelector((state: any) => {
+    return state.userReducer;
+  });
+
+  useEffect(()=>{
+ 
+dispatch(Actions.userCartInfo())
+  },[])
+
+
+ 
+
+//   if (isloggedIn===false) {
+//     // user not logged in
+//     return (
+//       <Redirect
+//         to={{
+//           pathname: "/login",
+//           state: { next: routeProps.location.pathname }
+//         }}
+//       />
+//     );
+//   }
   return (
     <div>
       <table className="table">
         <thead className="thead-dark">
+
           <tr>
             <th scope="col">#</th>
             <th scope="col">Product Name</th>
@@ -45,26 +74,8 @@ const AddToCart: React.FC<AddToCartProps> = () => {
           </tr>
         </tbody>
       </table>
-      <div className="btn-center">
+      <div>
         <p>Subtotal:Amount</p>
-        <PayPalButton
-          amount="0.01"
-          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-          onSuccess={(
-            details: { payer: { name: { given_name: string } } },
-            data: { orderID: any }
-          ) => {
-            alert("Transaction completed by " + details.payer.name.given_name);
-
-            // OPTIONAL: Call your server to save the transaction
-            return fetch("/paypal-transaction-complete", {
-              method: "post",
-              body: JSON.stringify({
-                orderID: data.orderID,
-              }),
-            });
-          }}
-        />
       </div>
     </div>
   );

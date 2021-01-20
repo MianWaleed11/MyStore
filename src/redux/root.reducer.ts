@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import CategoriesReducer from "./categories/slice";
 import productsReducer from "./Products/products.slice";
-import userReducer from "./user/user.slice";
+import userReducer from "./user/loginUser.slice";
 import AllProductsReducer from "./Products/allProducts.slice";
 import productReducer  from './Products/product.slice';
-import cartReducer from './cart/cart.slice';
+import addToCartReducer from './user/addtocart.slice';
 import productByIdReducer from './Products/productById.slice';
-
+import userCartInfoReducer from './user/userCartInfo.slice';
 
 export const rootReducer = combineReducers({
   CategoriesReducer,
@@ -14,7 +14,8 @@ export const rootReducer = combineReducers({
   userReducer,
   AllProductsReducer,
   productReducer,
-  cartReducer,
-  productByIdReducer
+  addToCartReducer,
+  productByIdReducer,
+  userCartInfoReducer
 
 });

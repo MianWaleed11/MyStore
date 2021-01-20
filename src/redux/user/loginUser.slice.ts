@@ -1,28 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { LogInInterface } from "../../interfaces";
+import { HttpService } from "../../services/base.service";
+import { userService } from "../../services/user.service";
 
-export interface userState {
+interface IloginUserState {
   token: string;
   isLoading: boolean;
   isloggedIn: boolean;
   redirectPath: string;
 }
 
-const initialState: userState = {
+const initialState: IloginUserState = {
   token: "",
   isLoading: false,
   isloggedIn: false,
   redirectPath: "/",
 };
+
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async (data: LogInInterface, thunkApi) => {
+    try {
+      const res = await userService.loginUser(data);
+      return res.data.token;
+    } catch (err) {
+      console.log(thunkApi.rejectWithValue("error in calling login user api"));
+    }
+  }
+);
+
 const userReducer = createSlice({
   name: "user",
-  initialState: initialState,
+  initialState,
   reducers: {
     setLogin: (state, action) => {
-      console.log("from action======>", action.payload);
+      console.log("from action======>", action);
       state.token = action.payload;
       state.isloggedIn = true;
     },
     setLogout: (state, action) => {
+      console.log("from action======>", action);
       state.token = "";
       state.isloggedIn = false;
       state.redirectPath = "/";
@@ -30,6 +47,20 @@ const userReducer = createSlice({
     setPath: (state, action) => {
       console.log("from action======>", action);
       state.redirectPath = action.payload;
+    },
+  },
+  extraReducers: {
+    [loginUser.pending.toString()]: (state) => {
+      state.isLoading = true;
+    },
+    [loginUser.fulfilled.toString()]: (state, action) => {
+      state.token = action.payload;
+      state.isLoading = false;
+      state.isloggedIn = true;
+      HttpService.setToken(action.payload);
+    },
+    [loginUser.rejected.toString()]: (state, action) => {
+      console.log(action.payload);
     },
   },
 });
