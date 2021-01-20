@@ -43,7 +43,6 @@ const HomePage: React.FC = () => {
     history.push(`/products/${category}`);
   };
 
-  
   const seen = new Set();
   const filteredArr = ProductsReducer.products.filter((el: any) => {
     const duplicate = seen.has(el.category);
@@ -53,16 +52,15 @@ const HomePage: React.FC = () => {
   console.log(filteredArr);
 
   const categories = filteredArr.map((product: any, i: number) => {
-    if (product.category === "jewellery") {
+    if (product.category === "jewelery") {
       img = jewelery;
     } else if (product.category === "electronics") {
       img = electrons;
     } else if (product.category === "men clothing") {
       img = men_jacket;
-    } else if (product.category === "women clothing") {
+    } else {
       img = women_jacket;
     }
-
     return (
       <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={i}>
         <ProductsCards

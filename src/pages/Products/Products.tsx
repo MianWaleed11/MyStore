@@ -13,6 +13,7 @@ interface Itype {
 
 const Products: React.FC<ProductsProps> = () => {
   const [disabled, setdisabled] = useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
@@ -26,7 +27,7 @@ const Products: React.FC<ProductsProps> = () => {
   }, []);
 
   const showdetails = (id: string) => {
-    history.push(`/productDetail/${id}`);
+    history.push(`/products/${id}`);
   };
 
   const filteredProducts = productsReducer.products.filter(
@@ -39,7 +40,7 @@ const Products: React.FC<ProductsProps> = () => {
     return (
       <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
         <ProductsCards
-          showMore={() => showdetails(product._id)}
+          showMore={() => showdetails(product.id)}
           category={product.category}
           image={product.image}
           title={product.title}
@@ -48,20 +49,24 @@ const Products: React.FC<ProductsProps> = () => {
       </div>
     );
   });
+  // const products = productsReducer.types.map((product: any, index: number) => {
+  //
+  //   );
+  // });
 
   const loadMoreHandler = () => {
-    // dispatch(Actions.Products());
+    dispatch(Actions.Products());
     setdisabled(true);
   };
 
   console.log(products);
 
-  const allProducts = productsReducer.products.map(
+  const allProducts = allProductsReducer.allProducts.map(
     (value: any, index: number) => {
       return (
         <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
           <ProductsCards
-            showMore={() => showdetails(value._id)}
+            showMore={() => showdetails(value.id)}
             category={value.category}
             image={value.image}
             title={value.title}
@@ -102,7 +107,7 @@ const Products: React.FC<ProductsProps> = () => {
         </div>
       </Container>
       <Container fluid>
-        <Row>{disabled ? allProducts : null}</Row>
+        <Row>{allProducts}</Row>
       </Container>
     </>
   );
