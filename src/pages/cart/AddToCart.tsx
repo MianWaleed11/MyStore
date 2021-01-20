@@ -19,7 +19,7 @@ const AddToCart: React.FC<AddToCartProps> = () => {
   });
 
   useEffect(()=>{
-    // HttpService.setToken(userreducer.token)
+ 
 dispatch(Actions.userCartInfo())
   },[])
 
