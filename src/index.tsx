@@ -10,7 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "react-placeholder/lib/reactPlaceholder.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// temp
+// temporaruy
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
