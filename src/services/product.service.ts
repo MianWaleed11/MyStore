@@ -8,5 +8,6 @@ class ProductService extends HttpService {
   getProductById = (id:string): Promise<any> =>this.get(`${this.prefix}/products_by_id/${id}`);
   getAllProducts = (): Promise<any> => this.get(`${this.prefix}`);
   getProduct = (id: string): Promise<any> => this.get(`${this.prefix}/${id}`);
+  uploadProductImage =( data:any,headers:any) : Promise<any> => this.post(`${this.prefix}/uploadImage`,data,headers)
 }
 export const productService = new ProductService();

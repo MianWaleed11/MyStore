@@ -18,12 +18,11 @@ const userReducer = createSlice({
   initialState: initialState,
   reducers: {
     setLogin: (state, action) => {
-      console.log("from action======>", action);
+      console.log("from action======>", action.payload);
       state.token = action.payload;
       state.isloggedIn = true;
     },
     setLogout: (state, action) => {
-      console.log("from action======>", action);
       state.token = "";
       state.isloggedIn = false;
       state.redirectPath = "/";

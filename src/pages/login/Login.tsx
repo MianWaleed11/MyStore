@@ -31,8 +31,8 @@ const Login: React.FC<LoginProps> = () => {
     console.log(data);
     try {
       let res = await axios.post("http://localhost:5000/api/users/login", data);
-      console.log(path);
-      dispatch(Actions.setLogin(res.data.userId));
+      console.log(res.data);
+      dispatch(Actions.setLogin(res.data.token));
       history.replace(path);
     } catch (error) {
       console.log(error);

@@ -43,8 +43,6 @@ const HomePage: React.FC = () => {
     history.push(`/products/${category}`);
   };
 
-
-  
   const seen = new Set();
   const filteredArr = ProductsReducer.products.filter((el: any) => {
     const duplicate = seen.has(el.category);
