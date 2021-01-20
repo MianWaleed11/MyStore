@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import { Cart } from "react-bootstrap-icons";
+import { Cart, CloudUpload, Upload } from "react-bootstrap-icons";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/user.slice";
@@ -17,6 +17,17 @@ const NavBar: React.FC<NavBarProps> = () => {
     await axios.get("http://localhost:5000/api/users/logout");
     dispatch(Actions.setLogout(""));
   };
+
+  let uploadTo: string = "";
+  {
+    isloggedIn ? (uploadTo = "/uploadProduct") : (uploadTo = "/login");
+  }
+
+  let cartTo: string = "";
+  {
+    isloggedIn ? (cartTo = "/addtocart") : (cartTo = "/login");
+  }
+
   return (
     <nav className="navbar navbar-expand-lg">
       <a className="navbar-brand" onClick={() => history.push("/")}>
@@ -73,8 +84,15 @@ const NavBar: React.FC<NavBarProps> = () => {
               </li> */}
             </>
           )}
+
           <li className="nav-item">
-            <NavLink className="nav-link" to="/">
+            <NavLink className="nav-link" to={uploadTo}>
+              <Upload size={25} />
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink className="nav-link" to={cartTo}>
               <Cart size={30} />{" "}
               <span className="badge badge-warning" id="badge_icon">
                 5

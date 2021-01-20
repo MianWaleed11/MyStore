@@ -1,31 +1,18 @@
 import React from "react";
+import "./addToCart.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { PayPalButton } from "react-paypal-button-v2";
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
-  
-  
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
 
-//   if (isloggedIn===false) {
-//     // user not logged in
-//     return (
-//       <Redirect
-//         to={{
-//           pathname: "/login",
-//           state: { next: routeProps.location.pathname }
-//         }}
-//       />
-//     );
-//   }
   return (
     <div>
       <table className="table">
         <thead className="thead-dark">
-
           <tr>
             <th scope="col">#</th>
             <th scope="col">Product Name</th>
@@ -58,8 +45,26 @@ const AddToCart: React.FC<AddToCartProps> = () => {
           </tr>
         </tbody>
       </table>
-      <div>
+      <div className="btn-center">
         <p>Subtotal:Amount</p>
+        <PayPalButton
+          amount="0.01"
+          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+          onSuccess={(
+            details: { payer: { name: { given_name: string } } },
+            data: { orderID: any }
+          ) => {
+            alert("Transaction completed by " + details.payer.name.given_name);
+
+            // OPTIONAL: Call your server to save the transaction
+            return fetch("/paypal-transaction-complete", {
+              method: "post",
+              body: JSON.stringify({
+                orderID: data.orderID,
+              }),
+            });
+          }}
+        />
       </div>
     </div>
   );
