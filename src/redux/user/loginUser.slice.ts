@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import { LogInInterface } from "../../interfaces";
 import { HttpService } from "../../services/base.service";
 import { userService } from "../../services/user.service";
@@ -8,6 +9,7 @@ interface IloginUserState {
   isLoading: boolean;
   isloggedIn: boolean;
   redirectPath: string;
+  name: string;
 }
 
 const initialState: IloginUserState = {
@@ -15,6 +17,7 @@ const initialState: IloginUserState = {
   isLoading: false,
   isloggedIn: false,
   redirectPath: "/",
+  name: "",
 };
 
 export const loginUser = createAsyncThunk(
@@ -22,7 +25,7 @@ export const loginUser = createAsyncThunk(
   async (data: LogInInterface, thunkApi) => {
     try {
       const res = await userService.loginUser(data);
-      return res.data.token;
+      return res.data;
     } catch (err) {
       console.log(thunkApi.rejectWithValue("error in calling login user api"));
     }
@@ -54,9 +57,10 @@ const userReducer = createSlice({
       state.isLoading = true;
     },
     [loginUser.fulfilled.toString()]: (state, action) => {
-      state.token = action.payload;
+      state.token = action.payload.token;
       state.isLoading = false;
       state.isloggedIn = true;
+      state.name = action.payload.name;
       HttpService.setToken(action.payload);
     },
     [loginUser.rejected.toString()]: (state, action) => {

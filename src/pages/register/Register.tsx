@@ -23,7 +23,7 @@ const RegisterPage: React.FC = () => {
   });
 
   const onSubmit = async (data: ILoginData) => {
-    console.log(data)
+    console.log(data);
     try {
       await axios.post("http://localhost:5000/api/users/register", data);
       history.replace("/login");
@@ -41,7 +41,9 @@ const RegisterPage: React.FC = () => {
   const alreadyUser = () => {
     history.push("/login");
   };
-
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <div>
       <div className="at-formholder">
@@ -126,6 +128,9 @@ const RegisterPage: React.FC = () => {
                 {errors.password?.message}
               </small>
             </div>
+            <button onClick={goBack} className="btn btn-outline-primary mr-5">
+              Cancel
+            </button>
 
             <button type="submit" className="btn btn-outline-primary">
               Register

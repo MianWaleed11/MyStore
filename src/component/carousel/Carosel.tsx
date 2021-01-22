@@ -1,19 +1,15 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import pic_1 from '../../assets/images/1448056_1920x1080.jpg'; 
-import pic_2 from '../../assets/images/carousal_image1_1920x1080.jpg'; 
-import pic_3 from '../../assets/images/qwqw.jpg'; 
-
-
-
+import pic_1 from "../../assets/images/1448056_1920x1080.jpg";
+import pic_2 from "../../assets/images/carousal_image1_1920x1080.jpg";
+import pic_3 from "../../assets/images/qwqw.jpg";
 
 export const Carosel: React.FC = () => {
   return (
     <Carousel>
       <Carousel.Item>
         <img
-        width='2560px'
-        
+          width="2560px"
           className="d-block w-100 "
           src={pic_1}
           alt="First slide"
@@ -25,8 +21,7 @@ export const Carosel: React.FC = () => {
       </Carousel.Item>
       <Carousel.Item>
         <img
-         width='2560px'
-         
+          width="2560px"
           className="d-block w-100 "
           src={pic_2}
           alt="Third slide"
@@ -39,8 +34,7 @@ export const Carosel: React.FC = () => {
       </Carousel.Item>
       <Carousel.Item>
         <img
-         width='2560px'
-         
+          width="2560px"
           className="d-block w-100 "
           src={pic_3}
           alt="Third slide"
@@ -56,5 +50,3 @@ export const Carosel: React.FC = () => {
     </Carousel>
   );
 };
-
-

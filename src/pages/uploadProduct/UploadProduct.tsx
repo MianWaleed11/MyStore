@@ -25,7 +25,9 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
   const onSubmit = async (data: UploadProductsProps) => {
     console.log(data);
     console.log("Before");
-    data.image = "http://localhost:5000/" + imageURL;
+    let temp: any[] = [];
+    temp.push("http://localhost:5000/" + imageURL);
+    data["image"] = temp;
     console.log(data);
     console.log("after");
 
@@ -54,7 +56,7 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
         },
       }
     );
-    console.log(res.data.image);
+    console.log(res);
     imageURL = res.data.image;
   };
 

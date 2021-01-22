@@ -12,7 +12,7 @@ const initialState: IproductState = {
     image: "",
   },
   isLoading: true,
-  test:true,
+  test: true,
 };
 
 export const product = createAsyncThunk(
@@ -20,10 +20,12 @@ export const product = createAsyncThunk(
   async (id: string, thunkApi) => {
     try {
       const res = await productService.getProduct(id);
-    
+
       return res.data;
     } catch (err) {
-      console.log(thunkApi.rejectWithValue("error in single products api: Single Product"));
+      console.log(
+        thunkApi.rejectWithValue("error in single products api: Single Product")
+      );
     }
   }
 );
@@ -44,9 +46,8 @@ const productReducer = createSlice({
       state.product.title = action.payload.title;
       state.product.category = action.payload.category;
       state.product.price = action.payload.price;
-       state.isLoading = false;
-       state.test=false
-
+      state.isLoading = false;
+      state.test = false;
     },
     [product.rejected.toString()]: (state, action) => {
       console.log(action.payload);

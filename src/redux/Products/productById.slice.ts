@@ -13,6 +13,7 @@ export const getProductById = createAsyncThunk(
   async (id: string, thunkApi) => {
     try {
       const res: any = await productService.getProductById(id);
+      console.log("Image dtat :"+ res.data)
       return res.data;
     } catch (err) {
       console.log(

@@ -20,32 +20,31 @@ const Login: React.FC<LoginProps> = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const path:string = useSelector(
+  const path: string = useSelector(
     (state: any) => state.userReducer.redirectPath
   );
 
- const userReducer=useSelector((state:any)=>state.userReducer)
-
-
+  const userReducer = useSelector((state: any) => state.userReducer);
 
   const registerFirst = () => {
     history.replace("/register");
   };
-  const onSubmit =  (data: LogInInterface) => {
-    
-    
-      // let res = await axios.post("http://localhost:5000/api/users/login", data);
-      // console.log(path);
-      // dispatch(Actions.setLogin(res.data.userId));
-      dispatch(Actions.loginUser(data))
-      
-      history.replace(path);
-      // HttpService.setToken(token)
-      console.log('token================>',userReducer.token);
+  const onSubmit = (data: LogInInterface) => {
+    // let res = await axios.post("http://localhost:5000/api/users/login", data);
+    // console.log(path);
+    // dispatch(Actions.setLogin(res.data.userId));
+    dispatch(Actions.loginUser(data));
 
-      //  catch (error) {
+    history.replace(path);
+    // HttpService.setToken(token)
+    console.log("token================>", userReducer.token);
+
+    //  catch (error) {
     //   console.log(error);
     // }
+  };
+  const goBack = () => {
+    history.goBack();
   };
   return (
     <div>
@@ -86,6 +85,7 @@ const Login: React.FC<LoginProps> = () => {
               </small>
             </div>
 
+            <button onClick={goBack} className="btn btn-outline-primary mr-5" >Cancel</button>
             <button type="submit" className="btn btn-outline-primary">
               Log In
             </button>

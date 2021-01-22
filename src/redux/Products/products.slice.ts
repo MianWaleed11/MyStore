@@ -12,8 +12,7 @@ export const Products = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const res: any = await productService.getProducts();
-      return res.data.products
-      
+      return res.data.products;
     } catch (err) {
       console.log(
         thunkApi.rejectWithValue("something wrong with api call: All Product")

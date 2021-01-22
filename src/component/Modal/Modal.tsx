@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Modal.css";
-import {Check} from 'react-bootstrap-icons'
+import { Check } from "react-bootstrap-icons";
 import { Button, Modal } from "react-bootstrap";
 export interface CartModalProps {
   show: boolean;
@@ -11,7 +11,6 @@ export interface CartModalProps {
     | ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   productImage: string;
-  
 }
 
 const CartModal: React.FC<CartModalProps> = (props) => {
@@ -25,8 +24,8 @@ const CartModal: React.FC<CartModalProps> = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="modal_cart_image">
-           <Check/> Added to Cart
-           <br/>
+            <Check /> Added to Cart
+            <br />
             <img
               src={props.productImage}
               alt="product"

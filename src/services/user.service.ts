@@ -12,5 +12,8 @@ class UserService extends HttpService {
   getUserCartInfo = (): Promise<any> => this.get(`${this.prefix}/userCartInfo`);
   addToCart = (id: string): Promise<any> =>
     this.get(`${this.prefix}/addToCart?productId=${id}&quantity=3`);
+
+  removeFromCart = (id: string): Promise<any> =>
+    this.get(`${this.prefix}/removeFromCart`, { _id: id });
 }
 export const userService = new UserService();

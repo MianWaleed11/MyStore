@@ -5,7 +5,8 @@ class ProductService extends HttpService {
   getAllCategories = (): Promise<any> => this.get(`${this.prefix}/categories`);
   //  getProducts=(type:string):Promise<any>=>this.get(`${this.prefix}/category/${type}`);
   getProducts = (): Promise<any> => this.post(`${this.prefix}/getProducts`, {});
-  getProductById = (id: string): Promise<any> =>this.get(`${this.prefix}/products_by_id`, { id: id });
+  getProductById = (id: string): Promise<any> =>
+    this.get(`${this.prefix}/products_by_id`, { id: id });
   getAllProducts = (): Promise<any> => this.get(`${this.prefix}`);
   getProduct = (id: string): Promise<any> => this.get(`${this.prefix}/${id}`);
 }

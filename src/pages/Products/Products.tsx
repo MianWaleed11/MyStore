@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import { ProductsCards } from "../../component";
 import * as Actions from "../../redux";
+import { productService } from "../../services/product.service";
 
 export interface ProductsProps {}
 
@@ -41,7 +42,7 @@ const Products: React.FC<ProductsProps> = () => {
         <ProductsCards
           showMore={() => showdetails(product._id)}
           category={product.category}
-          image={product.image}
+          image={product.images}
           title={product.title}
           price={product.price}
         />
@@ -53,9 +54,6 @@ const Products: React.FC<ProductsProps> = () => {
     // dispatch(Actions.Products());
     setdisabled(true);
   };
-
-  console.log(products);
-
   const allProducts = productsReducer.products.map(
     (value: any, index: number) => {
       return (
@@ -78,19 +76,7 @@ const Products: React.FC<ProductsProps> = () => {
         <h3 className="text-capitalize text-dark pt-2 text-center">
           {category}
         </h3>
-        <Row>
-          {products}
-
-          {/* <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
-         <ProductsCards
-          showMore={() => showdetails(products.id)}
-          category={products.category}
-          image={products.image}
-          title={products.title}
-          price={products.price}
-        />
-      </div> */}
-        </Row>
+        <Row>{products}</Row>
         <div className="text-center pt-5 d-block">
           <button
             className="btn btn-primary  btn-lg btn-block"

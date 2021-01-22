@@ -12,7 +12,7 @@ export const allProducts = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const res: any = await productService.getAllProducts();
-     
+
       return res.data;
     } catch (err) {
       console.log(

@@ -17,10 +17,10 @@ const Routes: React.FC<RoutesProps> = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/uploadProduct" component={UploadProduct} />
         <Layout>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/uploadProduct" component={UploadProduct} />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/products/:category" component={Products} />
 

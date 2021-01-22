@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Spinner } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
-
-import axios from "axios";
-import { HttpService } from "../../services/base.service";
 
 export interface ProductDetailsProps {}
 interface Iid {
@@ -16,12 +13,9 @@ interface Iid {
 const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const [show, setshow] = useState(false);
   // const [category, setCategory] = useState<string>("");
-  const productByIdReducer = useSelector(
-    (state: any) => state.productByIdReducer
-  );
+ 
   const productsReducer = useSelector((state: any) => state.ProductsReducer);
   const addToCartReducer = useSelector((state: any) => state.addToCartReducer);
-  const p = useSelector((state: any) => state.productReducer.product);
   const userReducer = useSelector((state: any) => state.userReducer);
 
   // let category:string="";
@@ -33,53 +27,30 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
-
+  const productByIdReducer = useSelector(
+    (state: any) => state.productByIdReducer
+  );
   useEffect(() => {
     dispatch(Actions.getProductById(_id));
     dispatch(Actions.Products());
+    console.log(productByIdReducer.product[0].images[0])
   }, []);
 
-
-
-  const filteredArray = productsReducer.products.filter((v: any, i: number) => {
+ 
+  const filteredArray = productsReducer.products.filter((v: any) => {
     return v.category === productByIdReducer.category;
   });
-  console.log(filteredArray);
-
-  console.log("from detai token", userReducer.token);
-
-  // const addCart = () => {
-  //   // setshow(true);
-  //   if (isloggedIn === true) {
-  //     Http1Service.setToken(userReducer.token);
-  //     axios
-  //       .get(`http://localhost:5000/api/users/login?productId=9&quantity=1`)
-  //       // .then((res) => res.json())
-  //       .then((res) => console.log(res));
-  //     history.push("/addtocart");
-  //   } else {
-  //     dispatch(Actions.setPath(location.pathname));
-  //     console.log(location.pathname);
-  //     history.push("/login");
-  //   }
-  // };
 
   const addCart = () => {
     if (isloggedIn === true) {
-    dispatch(Actions.addToCart(_id));
-    setshow(true)
-    }
-    else{
+      dispatch(Actions.addToCart(_id));
+      setshow(true);
+    } else {
       dispatch(Actions.setPath(location.pathname));
-          console.log(location.pathname);
-          history.push("/login");
-        }
+      console.log(location.pathname);
+      history.push("/login");
     }
-        
-        
-  
-
-  console.log("add to cart", addToCartReducer.data);
+  };
 
   const handleClose = () => {
     setshow(false);
@@ -89,9 +60,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     history.push("/addtocart");
   };
 
-  const response = productByIdReducer.product.map((v: any, i: number) => {
+  const response = productByIdReducer.product.map((v: any) => {
     return (
-      <div className="col-md-4 col-sm-12">
+      <>
         <h6>{v.category}</h6>
         <p>{v.title}</p>
         <p>RS :{v.price}</p>
@@ -101,7 +72,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         <button className="btn btn-outline-warning" onClick={addCart}>
           ADD TO CART
         </button>
-      </div>
+      </>
     );
   });
 
@@ -115,7 +86,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
             backgroundColor: "red",
           }}
         >
-          <img src={v.image} alt="product" width="80px" height="56px" />
+          <img src={v.images} alt="product" width="80px" height="56px" />
         </span>
         <span
           className="product_details"
@@ -131,65 +102,45 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
       </div>
     );
   });
+  console.log("Produ " + productByIdReducer);
 
   return (
     <>
-      {/* {productReducer.isLoading === true ? (
-        <Spinner variant="danger" animation="grow" />
-      ) : ( */}
-      <Container fluid>
-        <Row>
-          {response}
-
-          <div className="col-md-4 col-sm-12">
-            <div
-              className="card text-dark"
-              style={{ width: "23rem", overflowY: "scroll" }}
-            >
-              <div className="card-header">
-                Featured
-                {related}
-              </div>
-            </div>
-          </div>
-          {/*             
-            {console.log("rendering")}
+      <div>
+        <Container fluid>
+          <Row>
             <div className="col-md-4 col-sm-12">
               <img
-                src={productReducer.product.image}
-                alt="productReducer.product"
                 className="img-fluid"
+                src={productByIdReducer.product[0].images[0]}
+                alt="Card cap"
                 style={{ width: "374px", height: "374px" }}
               />
             </div>
-          
-
-            {/* {productReducer.isLoading === false && (
+            <div className="col-md-4 col-sm-12">{response}</div>
+            <div>
               <div className="col-md-4 col-sm-12">
                 <div
                   className="card text-dark"
                   style={{ width: "23rem", overflowY: "scroll" }}
                 >
                   <div className="card-header">
-                    Featured
-                    {response}
+                    Similar Products
+                    {related}
                   </div>
                 </div>
               </div>
-            )} */}
-
-          {/*  */}
-
-          <CartModal
-            show={show}
-            handleClose={handleClose}
-            redirectToCart={redirecToCart}
-            //  productImage={productByIdReducer.product.image}
-            productImage="wqwqwqwqw"
-          />
-        </Row>
-      </Container>
-      {/* )} */}
+            </div>
+            <CartModal
+              show={show}
+              handleClose={handleClose}
+              redirectToCart={redirecToCart}
+              //  productImage={productByIdReducer.product.image}
+              productImage="wqwqwqwqw"
+            />
+          </Row>
+        </Container>
+      </div>
     </>
   );
 };

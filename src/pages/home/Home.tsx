@@ -39,18 +39,16 @@ const HomePage: React.FC = () => {
    * show products on other page and its categories
    */
 
-  const show = (category: string): void => {
+  const show = (category: string | undefined) => {
     history.push(`/products/${category}`);
   };
 
-  
   const seen = new Set();
   const filteredArr = ProductsReducer.products.filter((el: any) => {
     const duplicate = seen.has(el.category);
     seen.add(el.category);
     return !duplicate;
   });
-  console.log(filteredArr);
 
   const categories = filteredArr.map((product: any, i: number) => {
     if (product.category === "jewellery") {
@@ -61,6 +59,8 @@ const HomePage: React.FC = () => {
       img = men_jacket;
     } else if (product.category === "women clothing") {
       img = women_jacket;
+    } else {
+      img = product.images[0];
     }
 
     return (
@@ -77,14 +77,10 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Carosel />
-      {/* ------------------wraper--------------------------------- */}
       <Container fluid style={{ backgroundColor: "#ebeeef" }} className="mt-5 ">
         <h3 className="text-capitalize text-dark pt-2 text-center">
           ALL CATEGORIES
         </h3>
-        {/* {console.log(categoriesState.isLoading)} */}
-        {/* <hr className /> */}
-
         <Row>{categories}</Row>
       </Container>
 

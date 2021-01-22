@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 const persistConfig = {
   key: "root",
   storage,
-  
+
   whitelist: ["userReducer"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -14,12 +14,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
 
-
   /**
    * solve the error of serialization;
-   * @param getDefaultMiddleware 
+   * @param getDefaultMiddleware
    */
-
 
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({ serializableCheck: false });

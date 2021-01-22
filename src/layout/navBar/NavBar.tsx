@@ -13,6 +13,9 @@ const NavBar: React.FC<NavBarProps> = () => {
   const isloggedIn = useSelector((state: any) => {
     return state.userReducer.isloggedIn;
   });
+  const name = useSelector((state: any) => {
+    return state.userReducer.name;
+  });
 
   const addToCartReducer = useSelector((state: any) => {
     return state.addToCartReducer;
@@ -30,6 +33,7 @@ const NavBar: React.FC<NavBarProps> = () => {
   const setLogout = async () => {
     await axios.get("http://localhost:5000/api/users/logout");
     dispatch(Actions.setLogout(""));
+    history.replace("/");
   };
   return (
     <nav className="navbar navbar-expand-lg">
@@ -59,13 +63,9 @@ const NavBar: React.FC<NavBarProps> = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Profile
+                  {name}
                 </button>
                 <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <div className="dropdown-divider"></div>
                   <a className="dropdown-item" href="#" onClick={setLogout}>
                     Logout
                   </a>
@@ -93,7 +93,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/">
+            <NavLink className="nav-link" to={cartTo}>
               <Cart size={30} />{" "}
               <span className="badge badge-warning" id="badge_icon">
                 {addToCartReducer.data.length}

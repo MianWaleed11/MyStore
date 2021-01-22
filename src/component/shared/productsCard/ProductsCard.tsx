@@ -2,7 +2,6 @@ import React from "react";
 import "./ProductsCards.css";
 import { IproductsCardsProps } from "../../../interfaces";
 
-
 export const ProductsCards: React.FC<IproductsCardsProps> = (props) => {
   return (
     <>
@@ -11,7 +10,7 @@ export const ProductsCards: React.FC<IproductsCardsProps> = (props) => {
           className="card-img-top"
           src={props.image}
           alt="Card cap"
-          onClick={props.showMore}
+          onClick={()=>props.showMore()}
         />
 
         <div className="card-body">
