@@ -13,7 +13,7 @@ export const userCartInfo = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const res: any = await userService.getUserCartInfo();
-      console.log("cartInfo" + res);
+      console.log("cartInfo" + res.data);
       return res.data;
     } catch (err) {
       console.log(

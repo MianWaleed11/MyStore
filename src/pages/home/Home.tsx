@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import "./home.css";
 import commerece_pic from "../../assets/images/ecommerce-case-studies.png";
 import character_pic from "../../assets/images/tyson-avatar.webp";
+import { Iproduct } from "../../interfaces";
 
 let img: string;
 
@@ -40,6 +41,12 @@ const HomePage: React.FC = () => {
    */
 
   const show = (category: string | undefined) => {
+   
+   
+   
+   
+   
+   
     history.push(`/products/${category}`);
   };
 
@@ -50,7 +57,8 @@ const HomePage: React.FC = () => {
     return !duplicate;
   });
 
-  const categories = filteredArr.map((product: any, i: number) => {
+  const categories = filteredArr.map((product: Iproduct, i: number) => {
+    // product.
     if (product.category === "jewellery") {
       img = jewelery;
     } else if (product.category === "electronics") {
@@ -60,7 +68,7 @@ const HomePage: React.FC = () => {
     } else if (product.category === "women clothing") {
       img = women_jacket;
     } else {
-      img = product.images[0];
+      // img = product.image[0];
     }
 
     return (

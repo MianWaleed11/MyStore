@@ -3,20 +3,14 @@ import { ILoginData } from "../../interfaces/register.interface";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../validations/register.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
 import "./register.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import * as Actions from "../../redux/user/loginUser.slice";
 import FacebookLogin from "react-facebook-login";
 import { GoogleLogin } from "react-google-login";
-// 564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com client id
-// XES5AIFxRP1L3ePOTZUBAhSr secret
 
 const RegisterPage: React.FC = () => {
   let history = useHistory();
-
-  const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(RegisterSchema),
@@ -161,7 +155,6 @@ const RegisterPage: React.FC = () => {
       </div>
     </div>
   );
-  history.push("/products/${}");
 };
 
 export default RegisterPage;

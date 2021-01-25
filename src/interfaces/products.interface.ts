@@ -17,7 +17,7 @@ export interface IproductsState {
   }
 
 
-interface Iproduct{
+export interface Iproduct{
   id:number;
   title:string;
   description:string;

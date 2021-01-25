@@ -1,11 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { UploadProductsProps } from "../../interfaces";
-import { HttpService } from "../../services/base.service";
-import { productService } from "../../services/product.service";
 import axios from "axios";
 import { UploadProductSchema } from "../../validations/upload.product.validation";
 export interface UploadProductProps {}
@@ -15,22 +13,15 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
   const token = useSelector((state: any) => {
     return state.userReducer.token;
   });
-
-  const dispatch = useDispatch();
   let imageURL: string = "";
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(UploadProductSchema),
   });
 
   const onSubmit = async (data: UploadProductsProps) => {
-    console.log(data);
-    console.log("Before");
     let temp: any[] = [];
     temp.push("http://localhost:5000/" + imageURL);
     data["image"] = temp;
-    console.log(data);
-    console.log("after");
-
     try {
       await axios.post("http://localhost:5000/api/product/uploadProduct", data);
       history.replace("/");
@@ -39,10 +30,7 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
     }
   };
   const handleChange = async (event: any) => {
-    console.log(event.target.files[0]);
     const fd = new FormData();
-    console.log(token);
-    HttpService.setToken(token);
     fd.append("file", event.target.files[0]);
     let res = await axios.post(
       "http://localhost:5000/api/product/uploadImage",
@@ -56,7 +44,6 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
         },
       }
     );
-    console.log(res);
     imageURL = res.data.image;
   };
 
@@ -65,8 +52,7 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
       <div className="form-containor">
         <form
           style={{ width: "300px", textAlign: "center" }}
-          onSubmit={handleSubmit(onSubmit)}
-        >
+          onSubmit={handleSubmit(onSubmit)}>
           <legend>Upload Product</legend>
           <fieldset>
             <div className="form-group">
@@ -98,7 +84,6 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
                 {errors.description?.message}
               </small>
             </div>
-
             <div className="form-group">
               <label className="label-text">Category</label>
               <input
@@ -126,7 +111,6 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
                 aria-describedby="emailHelp"
                 placeholder="Enter Image"
               />
-              {/* <img src={selectedFile} width="40px" height="40px"/> */}
               <small id="emailHelp" className="form-text text-muted">
                 {errors.image?.message}
               </small>
@@ -146,7 +130,6 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
                 {errors.price?.message}
               </small>
             </div>
-
             <div className="form-group">
               <label className="label-text">Continents</label>
               <input

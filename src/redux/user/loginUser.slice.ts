@@ -61,7 +61,6 @@ const userReducer = createSlice({
       state.isLoading = false;
       state.isloggedIn = true;
       state.name = action.payload.name;
-      HttpService.setToken(action.payload);
     },
     [loginUser.rejected.toString()]: (state, action) => {
       console.log(action.payload);

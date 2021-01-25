@@ -6,7 +6,7 @@ const initialState: IproductState = {
   product: {
     id: 0,
     description: "",
-    title: "",
+    title: "", 
     price: 0,
     category: "",
     image: "",

@@ -41,7 +41,7 @@ const CartModal: React.FC<CartModalProps> = (props) => {
             View Cart
           </Button>
           <Button variant="warning" onClick={props.handleClose}>
-            Proceed To Checkout
+            Shop More
           </Button>
         </Modal.Footer>
       </Modal>

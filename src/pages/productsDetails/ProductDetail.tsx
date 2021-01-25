@@ -4,6 +4,8 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
+import { selectLoggedIn } from "../../redux/user/user.selelector";
+import axios from "axios";
 
 export interface ProductDetailsProps {}
 interface Iid {
@@ -12,31 +14,23 @@ interface Iid {
 
 const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const [show, setshow] = useState(false);
-  // const [category, setCategory] = useState<string>("");
- 
-  const productsReducer = useSelector((state: any) => state.ProductsReducer);
-  const addToCartReducer = useSelector((state: any) => state.addToCartReducer);
-  const userReducer = useSelector((state: any) => state.userReducer);
+  useEffect(() => {
+    dispatch(Actions.getProductById(_id));
+    dispatch(Actions.Products());
+    console.log(productByIdReducer.product);
+  }, []);
 
-  // let category:string="";
   const dispatch = useDispatch();
   let history = useHistory();
   let location = useLocation();
   let { _id } = useParams<Iid>();
 
-  const isloggedIn = useSelector((state: any) => {
-    return state.userReducer.isloggedIn;
-  });
+  const isloggedIn = useSelector(selectLoggedIn);
   const productByIdReducer = useSelector(
     (state: any) => state.productByIdReducer
   );
-  useEffect(() => {
-    dispatch(Actions.getProductById(_id));
-    dispatch(Actions.Products());
-    console.log(productByIdReducer.product[0].images[0])
-  }, []);
+  const productsReducer = useSelector((state: any) => state.ProductsReducer);
 
- 
   const filteredArray = productsReducer.products.filter((v: any) => {
     return v.category === productByIdReducer.category;
   });
@@ -51,6 +45,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
       history.push("/login");
     }
   };
+
+  console.log("images red", productByIdReducer.images);
 
   const handleClose = () => {
     setshow(false);
@@ -74,7 +70,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         </button>
       </>
     );
+  }); 
+  const imageRes = productByIdReducer.product.map((v: any) => {
+    return (
+      <>
+         <img
+                className="img-fluid"
+                 src={v.images[0]}
+                alt="Card cap"
+                style={{ width: "374px", height: "374px" }}
+              />
+      </>
+    );
   });
+
 
   const related = filteredArray.map((v: any, i: number) => {
     return (
@@ -102,20 +111,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
       </div>
     );
   });
-  console.log("Produ " + productByIdReducer);
-
   return (
     <>
       <div>
         <Container fluid>
           <Row>
             <div className="col-md-4 col-sm-12">
-              <img
+              {imageRes}
+              {/* <img
                 className="img-fluid"
-                src={productByIdReducer.product[0].images[0]}
+                //  src={productByIdReducer.product[0].images[0]}
                 alt="Card cap"
-                style={{ width: "374px", height: "374px" }}
-              />
+                style={{ width: "374px", height: "374px" }} */}
+              {/* /> */}
             </div>
             <div className="col-md-4 col-sm-12">{response}</div>
             <div>
@@ -135,7 +143,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
               show={show}
               handleClose={handleClose}
               redirectToCart={redirecToCart}
-              //  productImage={productByIdReducer.product.image}
               productImage="wqwqwqwqw"
             />
           </Row>

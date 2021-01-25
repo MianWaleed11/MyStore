@@ -5,17 +5,18 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/loginUser.slice";
 import axios from "axios";
+import { selectLoggedIn } from "../../redux/user/user.selelector";
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  const isloggedIn = useSelector((state: any) => {
-    return state.userReducer.isloggedIn;
-  });
+  const isloggedIn = useSelector(selectLoggedIn);
   const name = useSelector((state: any) => {
     return state.userReducer.name;
   });
+
+const userCartInfoReducer=useSelector((state:any)=>state.userCartInfoReducer)
 
   const addToCartReducer = useSelector((state: any) => {
     return state.addToCartReducer;
@@ -96,7 +97,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             <NavLink className="nav-link" to={cartTo}>
               <Cart size={30} />{" "}
               <span className="badge badge-warning" id="badge_icon">
-                {addToCartReducer.data.length}
+                {userCartInfoReducer.cart.length}
               </span>
             </NavLink>
           </li>

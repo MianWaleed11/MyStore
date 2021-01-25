@@ -11,10 +11,7 @@ const AddToCart: React.FC<AddToCartProps> = () => {
   });
   let dispatch = useDispatch();
   let subTotal = 0;
-  useEffect(() => {
-    dispatch(Actions.userCartInfo());
-    console.log(reducer);
-  }, []);
+  
   const quantity = reducer.cart.map((v: any, i: number) => {
     return v.quantity;
   });
@@ -25,7 +22,7 @@ const AddToCart: React.FC<AddToCartProps> = () => {
   const cartDetail = reducer.cartInfo.map((v: any, i: number) => {
     return (
       <tr>
-        <th scope="row">{i}</th>
+        <th scope="row">{i+1}</th>
         <td>{v.title}</td>
         <td>{v.price}</td>
         <td>{quantity[i]}</td>
