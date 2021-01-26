@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import "./register.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import * as Actions from "../../redux/user/loginUser.slice";
+import * as Actions from "../../redux";
 import FacebookLogin from "react-facebook-login";
 import { GoogleLogin } from "react-google-login";
 // 564695661364-q05j2r1ptgu63jdoorulcl5iho8n54kv.apps.googleusercontent.com client id
@@ -156,7 +156,7 @@ const RegisterPage: React.FC = () => {
       </div>
     </div>
   );
-  history.push("/products/${}");
+ 
 };
 
 export default RegisterPage;

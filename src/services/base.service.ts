@@ -14,9 +14,8 @@ export class HttpService {
    * Set Token On Header
    * @param token
    */
- static  setToken(token: string): void {
+  static setToken(token: string): void {
     axios.defaults.headers["Authorization"] = `${token}`;
-   
   }
 
   /**

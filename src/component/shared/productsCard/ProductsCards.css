@@ -1,5 +1,5 @@
 .card {
-  width: 230px;
+  width: 250px;
   border-radius: 12px;
   color:  #fff3D3;
   cursor: pointer;
@@ -20,10 +20,15 @@
     color: #fff3D3
 }
 .footer_text{
-    font-size: 14px;
-    font-weight: 600;
-    color: #656565;
+    font-size: 17px;
+    font-weight: 900;
+    color:#ff9f1a ;
+   
 }
+.category{
+  color:#656565
+}
+
 .Show_more_btn{
     color:#1D4354;
     background-color: silver;

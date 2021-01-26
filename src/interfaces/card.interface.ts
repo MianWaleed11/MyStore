@@ -1,8 +1,9 @@
 export interface IproductsCardsProps {
-  category: string;
+  category?: string;
   image: string;
   showMore?: () => void;
-  price?: string;
+  price?: number;
   title?: string;
   showDetails?: () => void;
+  showPrice?:boolean
 }

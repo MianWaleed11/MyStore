@@ -2,14 +2,18 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
 import { LoginProps } from "../../interfaces";
 import "./login.css";
 import * as Actions from "../../redux";
-import axios from "axios";
-import { HttpService } from "../../services/base.service";
+import {
+  selectRedirectPath,
+  selectToken,
+} from "../../redux/user/user.selector";
+import Swal from "sweetalert2";
+import { selectData } from "../../redux/cart/cart.selector";
 interface temp {
   from: string;
 }
@@ -17,35 +21,59 @@ const Login: React.FC<LoginProps> = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   let { from } = useParams<temp>();
+
+  //selectors here
+  const path = useSelector(selectRedirectPath);
+  const token = useSelector(selectToken);
+  const Userdata = useSelector(selectData);
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const path:string = useSelector(
-    (state: any) => state.userReducer.redirectPath
-  );
-
- const userReducer=useSelector((state:any)=>state.userReducer)
-
-
 
   const registerFirst = () => {
     history.replace("/register");
   };
-  const onSubmit =  (data: LogInInterface) => {
+  
+  const onSubmit =async  (data: LogInInterface) => {
+  
+   const res:any=await  dispatch(Actions.loginUser(data));
+   console.log(res);
+   
+    if (res.payload.loginSuccess === false) {
     
-    
-      // let res = await axios.post("http://localhost:5000/api/users/login", data);
-      // console.log(path);
-      // dispatch(Actions.setLogin(res.data.userId));
-      dispatch(Actions.loginUser(data))
-      
-      history.replace(path);
-      // HttpService.setToken(token)
-      console.log('token================>',userReducer.token);
+      Swal.fire({
+        title: "product info",
+        titleText: "Please Register Your Account",
+        icon: "warning",
+        confirmButtonText: "Register",
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/register");
+        }
+      });
+    } else {
+   
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
 
-      //  catch (error) {
-    //   console.log(error);
-    // }
+      Toast.fire({
+        icon: "success",
+        title: "Signed in successfully",
+      });
+      history.replace(path);
+    }
   };
   return (
     <div>

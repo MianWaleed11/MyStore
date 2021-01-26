@@ -4,44 +4,63 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import { ProductsCards } from "../../component";
 import * as Actions from "../../redux";
+import { IcategoryfromUrl, Iproduct } from "../../interfaces";
+import {
+  selectloading,
+  selectProducts,
+} from "../../redux/Products/products.selector";
+import CardSkeleton from "../../component/skeletons/CardSkeleton";
 
-export interface ProductsProps {}
-
-interface Itype {
-  category: string;
-}
-
-const Products: React.FC<ProductsProps> = () => {
-  const [disabled, setdisabled] = useState(false);
+const Products: React.FC = () => {
+  const [disabled, setdisabled] = useState<boolean>(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const productsReducer = useSelector((state: any) => state.ProductsReducer);
-  const allProductsReducer = useSelector(
-    (state: any) => state.AllProductsReducer
-  );
-  let { category } = useParams<Itype>();
+
+  //useselecter here
+  const products = useSelector(selectProducts);
+  const isLoading = useSelector(selectloading);
 
   useEffect(() => {
     dispatch(Actions.Products());
-  }, []);
+  }, [dispatch]);
 
-  const showdetails = (id: string) => {
+  let { category } = useParams<IcategoryfromUrl>();
+
+  const showProductDetails = (id: string) => {
     history.push(`/productDetail/${id}`);
   };
 
-  const filteredProducts = productsReducer.products.filter(
-    (product: any, index: number) => {
-      return product.category === category;
+  const loadMoreHandler = () => {
+    setdisabled(true);
+  };
+
+  const filteredProducts = products.filter((product: Iproduct) => {
+    return product.category === category;
+  });
+
+  const productsByCategory = filteredProducts.map(
+    (product: Iproduct, index: number) => {
+      return (
+        <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
+          <ProductsCards
+            showMore={() => showProductDetails(product._id)}
+            category={product.category}
+            image={product.images[0]}
+            title={product.title}
+            price={product.price}
+          />
+        </div>
+      );
     }
   );
 
-  const products = filteredProducts.map((product: any, index: number) => {
+  const allProducts = products.map((product: any, index: number) => {
     return (
       <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
         <ProductsCards
-          showMore={() => showdetails(product._id)}
+          showMore={() => showProductDetails(product._id)}
           category={product.category}
-          image={product.image}
+          image={product.images[0]}
           title={product.title}
           price={product.price}
         />
@@ -49,48 +68,15 @@ const Products: React.FC<ProductsProps> = () => {
     );
   });
 
-  const loadMoreHandler = () => {
-    // dispatch(Actions.Products());
-    setdisabled(true);
-  };
-
-  console.log(products);
-
-  const allProducts = productsReducer.products.map(
-    (value: any, index: number) => {
-      return (
-        <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
-          <ProductsCards
-            showMore={() => showdetails(value._id)}
-            category={value.category}
-            image={value.image}
-            title={value.title}
-            price={value.price}
-          />
-        </div>
-      );
-    }
-  );
-
+  //main return section;
   return (
     <>
       <Container fluid>
         <h3 className="text-capitalize text-dark pt-2 text-center">
           {category}
+          {console.log("from product", isLoading)}
         </h3>
-        <Row>
-          {products}
-
-          {/* <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
-         <ProductsCards
-          showMore={() => showdetails(products.id)}
-          category={products.category}
-          image={products.image}
-          title={products.title}
-          price={products.price}
-        />
-      </div> */}
-        </Row>
+        <Row>{productsByCategory}</Row>
         <div className="text-center pt-5 d-block">
           <button
             className="btn btn-primary  btn-lg btn-block"

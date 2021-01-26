@@ -1,5 +1,4 @@
 .div_class {
-    
 }
 .quote {
   font-style: italic;
@@ -11,4 +10,15 @@
 .products_size {
   font-weight: 400;
   font-size: 23px;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.spinner{
+  width: 100px;
+  height: 100px;
 }

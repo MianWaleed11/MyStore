@@ -8,15 +8,10 @@ import { HttpService } from "../../services/base.service";
 import { productService } from "../../services/product.service";
 import axios from "axios";
 import { UploadProductSchema } from "../../validations/upload.product.validation";
-export interface UploadProductProps {}
 
-const UploadProduct: React.FC<UploadProductProps> = () => {
+const UploadProduct: React.FC = () => {
   let history = useHistory();
-  const token = useSelector((state: any) => {
-    return state.userReducer.token;
-  });
 
-  const dispatch = useDispatch();
   let imageURL: string = "";
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(UploadProductSchema),
@@ -39,20 +34,11 @@ const UploadProduct: React.FC<UploadProductProps> = () => {
   const handleChange = async (event: any) => {
     console.log(event.target.files[0]);
     const fd = new FormData();
-    console.log(token);
-    HttpService.setToken(token);
+
     fd.append("file", event.target.files[0]);
     let res = await axios.post(
       "http://localhost:5000/api/product/uploadImage",
-      fd,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          accept: "application/json",
-          "Accept-Language": "en-US,en;q=0.8",
-          Authorization: token,
-        },
-      }
+      fd
     );
     console.log(res.data.image);
     imageURL = res.data.image;

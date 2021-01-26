@@ -64,20 +64,45 @@ nav ul li {
 } */
 nav {
   background-color: #1d4354;
-  
+  color: white;
 }
 .nav-link {
   color: #fff3d3;
   font-size: "14px";
 }
-.btn-profile{
+.btn-profile {
   margin-right: 8px;
 }
-#badge_icon{
- 
-  
-/* padding: 0 9px 0 9px;
--webkit-border-radius:9px;
--moz-border-radius: 9px;
-  border-radius: 9px; */
+
+/* .cart_icon{
+  position: relative;
+} */
+
+#navLink {
+  position: relative;
+}
+#badge_icon {
+  position: absolute;
+  right: 9px;
+  bottom: 23px; 
+}
+.user_dropdown{
+  background: none;
+  outline: none !important;
+  border: none !important;
+  color: white;
+}
+
+
+
+
+@media(max-width : 991px){
+  #badge_icon{
+    right: auto;
+    left: 9px;
+  }
+  .at-btncetagory{
+    padding: 0 !important;
+    border: 0 !important;
+  }
 }

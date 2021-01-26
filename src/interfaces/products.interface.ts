@@ -1,33 +1,15 @@
-export interface IproductsState {
-    products: any[];
-    isLoading:boolean;
-    
-  };
 
-
-  export interface IcategoriesState {
-    categories: any[];
-    isLoading: boolean|undefined;
-    
-  }
-
-  export interface IallProductsState{
-    allProducts:any[],
-    isLoading:boolean,
-  }
-
-
-interface Iproduct{
-  id:number;
+export interface Iproduct{
+  _id:string;
   title:string;
   description:string;
   price:number;
   category:string;
-  image:string;
+  images:string[];
+  role:number;
+  continent:number;
+  view:number;
+  sold:number;
 }
 
-  export interface IproductState{
-    product:Iproduct,
-    isLoading:boolean;
-    test:boolean
-  }
+

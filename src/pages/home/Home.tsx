@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,25 +13,27 @@ import { useHistory } from "react-router-dom";
 import "./home.css";
 import commerece_pic from "../../assets/images/ecommerce-case-studies.png";
 import character_pic from "../../assets/images/tyson-avatar.webp";
+import {
+  selectloading,
+  selectProducts,
+} from "../../redux/Products/products.selector";
+import { Iproduct } from "../../interfaces";
+import { selectCart } from "../../redux/cart/cart.selector";
 
 let img: string;
 
-const HomePage: React.FC = () => {
-  /**
-   * react hooks
-   */
-
+const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(Actions.Products());
-  }, []);
+  }, [dispatch]);
 
-  /**
-   * hooks
-   */
-  const history = useHistory();
-  const ProductsReducer = useSelector((state: any) => state.ProductsReducer);
+  //selectors here
+  const products = useSelector(selectProducts);
+  const isLoading = useSelector(selectloading);
+  const cart = useSelector(selectCart);
 
   /**
    *
@@ -39,21 +41,24 @@ const HomePage: React.FC = () => {
    * show products on other page and its categories
    */
 
-  const show = (category: string): void => {
+  const showProducts = (category: string): void => {
     history.push(`/products/${category}`);
   };
 
-  
+  /**
+   * filter the array and return the first element of category
+   */
+
   const seen = new Set();
-  const filteredArr = ProductsReducer.products.filter((el: any) => {
+
+  const filteredArr = products.filter((el: any) => {
     const duplicate = seen.has(el.category);
     seen.add(el.category);
     return !duplicate;
   });
-  console.log(filteredArr);
 
-  const categories = filteredArr.map((product: any, i: number) => {
-    if (product.category === "jewellery") {
+  const categories = filteredArr.map((product: Iproduct, i: number) => {
+    if (product.category === "jewelery") {
       img = jewelery;
     } else if (product.category === "electronics") {
       img = electrons;
@@ -64,55 +69,64 @@ const HomePage: React.FC = () => {
     }
 
     return (
-      <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={i}>
+      <div className="col-md-3 col-sm-12 mt-3 pb-3" key={i}>
         <ProductsCards
           category={product.category}
           image={img}
-          showMore={() => show(product.category)}
+          showMore={() => showProducts(product.category)}
+          showPrice={false}
         />
       </div>
     );
   });
 
-  return (
-    <>
-      <Carosel />
-      {/* ------------------wraper--------------------------------- */}
-      <Container fluid style={{ backgroundColor: "#ebeeef" }} className="mt-5 ">
-        <h3 className="text-capitalize text-dark pt-2 text-center">
-          ALL CATEGORIES
-        </h3>
-        {/* {console.log(categoriesState.isLoading)} */}
-        {/* <hr className /> */}
-
-        <Row>{categories}</Row>
-      </Container>
-
-      <div className="container mt-5 div_class">
-        <div className="row  pt-5">
-          <div className="col-md-6 col-sm-12 animate__animated animate__bounceInLeft">
-            <h4 className="products_size">
-              WE HAVE 2.3M PRODUCTS FROM ALL OUR THE WORLD
-            </h4>
-            <p className="quote mt-5">
-              "Store took a lot of stress off of growing with minimal resources"
-            </p>
-            <div className="mt-3">
-              <img
-                src={character_pic}
-                alt="character"
-                className="character_pic"
-              />
-              <small>Sajjid CEO and co-founder, store</small>
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-content-center w-100 bg-danger">
+        <Spinner variant="primary" animation="grow" className="spinner" />
+      </div>
+    );
+  } else {
+    //main return section;
+    return (
+      <>
+        <Carosel />
+        <Container style={{ backgroundColor: "#ebeeef" }} className="mt-5">
+          <h5 className="text-capitalize text-dark pt-3 text-left">
+            ALL CATEGORIES
+          </h5>
+          <Row>{categories}</Row>
+        </Container>
+        <div
+          className="container mt-5 div_class"
+          style={{ backgroundColor: "#ebeeef" }}
+        >
+          <div className="row  pt-5">
+            <div className="col-md-6 col-sm-10 animate__animated animate__bounceInLeft pb-3">
+              <h4 className="products_size">
+                WE HAVE 2.3M PRODUCTS FROM ALL OUR THE WORLD
+              </h4>
+              <p className="quote mt-5">
+                "Store took a lot of stress off of growing with minimal
+                resources"
+              </p>
+              <div className="mt-3">
+                <img
+                  src={character_pic}
+                  alt="character"
+                  className="character_pic"
+                />
+                <small>Sajjid CEO and co-founder, store</small>
+              </div>
+            </div>
+            <div className="col-md-6 col-sm-10 animate__animated animate__bounceInLeft pb-3">
+              <img src={commerece_pic} alt="commercce" className="img-fluid" />
             </div>
           </div>
-          <div className="col-md-6 col-sm-12 animate__animated animate__bounceInLeft">
-            <img src={commerece_pic} alt="commercce" className="img-fluid" />
-          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 };
 
-export default HomePage;
+export default Home;
