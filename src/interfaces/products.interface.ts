@@ -1,9 +1,3 @@
-export interface IproductsState {
-    products: any[];
-    isLoading:boolean;
-    
-  };
-
 
   export interface IcategoriesState {
     categories: any[];
@@ -28,6 +22,6 @@ export interface Iproduct{
 
   export interface IproductState{
     product:Iproduct,
-    isLoading:boolean;
     test:boolean
+    isLoading:boolean;
   }

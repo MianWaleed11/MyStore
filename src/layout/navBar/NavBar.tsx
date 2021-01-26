@@ -5,22 +5,15 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/user/loginUser.slice";
 import axios from "axios";
-import { selectLoggedIn } from "../../redux/user/user.selelector";
-export interface NavBarProps {}
+import { selectLoggedIn, selectName } from "../../redux/user/user.selelector";
+import { selectCart } from "../../redux/cart/cart.selector";
 
-const NavBar: React.FC<NavBarProps> = () => {
+const NavBar: React.FC = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   const isloggedIn = useSelector(selectLoggedIn);
-  const name = useSelector((state: any) => {
-    return state.userReducer.name;
-  });
-
-const userCartInfoReducer=useSelector((state:any)=>state.userCartInfoReducer)
-
-  const addToCartReducer = useSelector((state: any) => {
-    return state.addToCartReducer;
-  });
+  const name = useSelector(selectName);
+  const cart = useSelector(selectCart);
 
   let uploadTo: string = "";
   {
@@ -80,12 +73,6 @@ const userCartInfoReducer=useSelector((state:any)=>state.userCartInfoReducer)
                   Login
                 </NavLink>
               </li>
-              {/* 
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink>
-              </li> */}
             </>
           )}
           <li className="nav-item">
@@ -97,7 +84,7 @@ const userCartInfoReducer=useSelector((state:any)=>state.userCartInfoReducer)
             <NavLink className="nav-link" to={cartTo}>
               <Cart size={30} />{" "}
               <span className="badge badge-warning" id="badge_icon">
-                {userCartInfoReducer.cart.length}
+                {cart.length}
               </span>
             </NavLink>
           </li>

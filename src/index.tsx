@@ -4,12 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import "react-placeholder/lib/reactPlaceholder.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { HttpService } from "./services/base.service";
 
 
 

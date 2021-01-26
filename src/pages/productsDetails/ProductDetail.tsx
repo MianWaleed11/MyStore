@@ -5,7 +5,6 @@ import * as Actions from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import CartModal from "../../component/Modal/Modal";
 import { selectLoggedIn } from "../../redux/user/user.selelector";
-import axios from "axios";
 
 export interface ProductDetailsProps {}
 interface Iid {
@@ -29,7 +28,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const productByIdReducer = useSelector(
     (state: any) => state.productByIdReducer
   );
-  const productsReducer = useSelector((state: any) => state.ProductsReducer);
+  const productsReducer = useSelector((state: any) => state.productsReducer);
 
   const filteredArray = productsReducer.products.filter((v: any) => {
     return v.category === productByIdReducer.category;
@@ -45,8 +44,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
       history.push("/login");
     }
   };
-
-  console.log("images red", productByIdReducer.images);
 
   const handleClose = () => {
     setshow(false);
@@ -70,20 +67,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         </button>
       </>
     );
-  }); 
+  });
   const imageRes = productByIdReducer.product.map((v: any) => {
     return (
       <>
-         <img
-                className="img-fluid"
-                 src={v.images[0]}
-                alt="Card cap"
-                style={{ width: "374px", height: "374px" }}
-              />
+        <img
+          className="img-fluid"
+          src={v.images[0]}
+          alt="Card cap"
+          style={{ width: "374px", height: "374px" }}
+        />
       </>
     );
   });
-
 
   const related = filteredArray.map((v: any, i: number) => {
     return (
@@ -116,15 +112,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
       <div>
         <Container fluid>
           <Row>
-            <div className="col-md-4 col-sm-12">
-              {imageRes}
-              {/* <img
-                className="img-fluid"
-                //  src={productByIdReducer.product[0].images[0]}
-                alt="Card cap"
-                style={{ width: "374px", height: "374px" }} */}
-              {/* /> */}
-            </div>
+            <div className="col-md-4 col-sm-12">{imageRes}</div>
             <div className="col-md-4 col-sm-12">{response}</div>
             <div>
               <div className="col-md-4 col-sm-12">

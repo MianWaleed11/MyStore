@@ -1,16 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import { LogInInterface } from "../../interfaces";
-import { HttpService } from "../../services/base.service";
 import { userService } from "../../services/user.service";
-
-interface IloginUserState {
-  token: string;
-  isLoading: boolean;
-  isloggedIn: boolean;
-  redirectPath: string;
-  name: string;
-}
+import { IloginUserState } from "./types";
 
 const initialState: IloginUserState = {
   token: "",
@@ -32,7 +23,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-const userReducer = createSlice({
+const userAuthReducer = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -67,45 +58,6 @@ const userReducer = createSlice({
     },
   },
 });
-// interface userState {
-//   products: ILoginData[];
-//   isLoading: boolean;
-// }
 
-// const initialState: userState = {
-//   products: [],
-//   isLoading: false,
-// };
-
-// export const userThunk = createAsyncThunk(
-//   "createUser",
-//   async (data: ILoginData, thunkApi) => {
-//     try {
-//       const res: any = await userService.createUser(data);
-//       return res.data;
-//     } catch (err) {
-//         console.log(err.message)
-//       return thunkApi.rejectWithValue("Something Went Worng!");
-//     }
-//   }
-// );
-
-// const userReducer = createSlice({
-//   name: "user",
-//   initialState,
-//   reducers: {},
-//   extraReducers: {
-//     [userThunk.pending.toString()]: (state) => {
-//       state.isLoading = true;
-//     },
-//     [userThunk.fulfilled.toString()]: (state, action) => {
-//       state.products = action.payload;
-//       state.isLoading = false;
-//     },
-//     [userThunk.rejected.toString()]: (state, action) => {
-//       console.log(action.payload);
-//     },
-//   },
-// });
-export default userReducer.reducer;
-export const { setLogin, setLogout, setPath } = userReducer.actions;
+export default userAuthReducer.reducer;
+export const { setLogin, setLogout, setPath } = userAuthReducer.actions;

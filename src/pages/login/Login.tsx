@@ -2,12 +2,13 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { LogInInterface } from "../../interfaces/login.interface";
 import { loginSchema } from "../../validations/login.validation";
 import { LoginProps } from "../../interfaces";
 import "./login.css";
 import * as Actions from "../../redux";
+import { selectRedirect } from "../../redux/user/user.selelector";
 
 const Login: React.FC<LoginProps> = () => {
   let history = useHistory();
@@ -15,11 +16,7 @@ const Login: React.FC<LoginProps> = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const path: string = useSelector(
-    (state: any) => state.userReducer.redirectPath
-  );
-
-  const userReducer = useSelector((state: any) => state.userReducer);
+  const path: string = useSelector(selectRedirect);
 
   const registerFirst = () => {
     history.replace("/register");
@@ -27,7 +24,7 @@ const Login: React.FC<LoginProps> = () => {
   const onSubmit = (data: LogInInterface) => {
     dispatch(Actions.loginUser(data));
     history.replace(path);
-   };
+  };
   const goBack = () => {
     history.goBack();
   };

@@ -5,6 +5,7 @@ import { Container, Row } from "react-bootstrap";
 import { ProductsCards } from "../../component";
 import * as Actions from "../../redux";
 import { productService } from "../../services/product.service";
+import { selectProducts } from "../../redux/Products/products.selector";
 
 export interface ProductsProps {}
 
@@ -16,10 +17,7 @@ const Products: React.FC<ProductsProps> = () => {
   const [disabled, setdisabled] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const productsReducer = useSelector((state: any) => state.ProductsReducer);
-  const allProductsReducer = useSelector(
-    (state: any) => state.AllProductsReducer
-  );
+  const products = useSelector(selectProducts);
   let { category } = useParams<Itype>();
 
   useEffect(() => {
@@ -30,45 +28,42 @@ const Products: React.FC<ProductsProps> = () => {
     history.push(`/productDetail/${id}`);
   };
 
-  const filteredProducts = productsReducer.products.filter(
-    (product: any, index: number) => {
-      return product.category === category;
-    }
-  );
-
-  const products = filteredProducts.map((product: any, index: number) => {
-    return (
-      <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
-        <ProductsCards
-          showMore={() => showdetails(product._id)}
-          category={product.category}
-          image={product.images}
-          title={product.title}
-          price={product.price}
-        />
-      </div>
-    );
+  const filteredProducts = products.filter((product: any, index: number) => {
+    return product.category === category;
   });
 
-  const loadMoreHandler = () => {
-    // dispatch(Actions.Products());
-    setdisabled(true);
-  };
-  const allProducts = productsReducer.products.map(
-    (value: any, index: number) => {
+  const categoryProducts = filteredProducts.map(
+    (product: any, index: number) => {
       return (
         <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
           <ProductsCards
-            showMore={() => showdetails(value._id)}
-            category={value.category}
-            image={value.image}
-            title={value.title}
-            price={value.price}
+            showMore={() => showdetails(product._id)}
+            category={product.category}
+            image={product.images}
+            title={product.title}
+            price={product.price}
           />
         </div>
       );
     }
   );
+
+  const loadMoreHandler = () => {
+    setdisabled(true);
+  };
+  const allCatgeoryProducts = products.map((value: any, index: number) => {
+    return (
+      <div className="col-lg-3 col-md-3 col-sm-12 mt-3" key={index}>
+        <ProductsCards
+          showMore={() => showdetails(value._id)}
+          category={value.category}
+          image={value.images}
+          title={value.title}
+          price={value.price}
+        />
+      </div>
+    );
+  });
 
   return (
     <>
@@ -76,7 +71,7 @@ const Products: React.FC<ProductsProps> = () => {
         <h3 className="text-capitalize text-dark pt-2 text-center">
           {category}
         </h3>
-        <Row>{products}</Row>
+        <Row>{categoryProducts}</Row>
         <div className="text-center pt-5 d-block">
           <button
             className="btn btn-primary  btn-lg btn-block"
@@ -88,7 +83,7 @@ const Products: React.FC<ProductsProps> = () => {
         </div>
       </Container>
       <Container fluid>
-        <Row>{disabled ? allProducts : null}</Row>
+        <Row>{disabled ? allCatgeoryProducts : null}</Row>
       </Container>
     </>
   );

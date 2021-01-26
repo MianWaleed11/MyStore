@@ -5,6 +5,7 @@ import { IUserCartInfoState } from "./types";
 const initialState: IUserCartInfoState = {
   cartInfo: [],
   cart: [],
+  data: [],
   isLoading: false,
 };
 
@@ -36,6 +37,18 @@ export const removeCartItem = createAsyncThunk(
     }
   }
 );
+export const addToCart = createAsyncThunk(
+  "addToCart/add",
+  async (id: string, thunkApi) => {
+    try {
+      const res = await userService.addToCart(id);
+      console.log("test res data", res.data);
+      return res.data;
+    } catch (err) {
+      console.log(thunkApi.rejectWithValue("error in calling add to cart api"));
+    }
+  }
+);
 
 const userCartInfoReducer = createSlice({
   name: "userCartInfo",
@@ -64,6 +77,17 @@ const userCartInfoReducer = createSlice({
     [removeCartItem.fulfilled.toString()]: (state, action) => {
       state.cartInfo = action.payload.cartDetail;
       state.cart = action.payload.cart;
+      state.isLoading = false;
+    },
+    [addToCart.pending.toString()]: (state, action) => {
+      state.isLoading = true;
+    },
+    [addToCart.fulfilled.toString()]: (state, action) => {
+      state.data = action.payload;
+      state.isLoading = false;
+    },
+    [addToCart.rejected.toString()]: (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
     },
   },

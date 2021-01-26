@@ -7,10 +7,11 @@ import IndexPage from "./pages/Index";
 import { selectToken } from "./redux/user/user.selelector";
 import { HttpService } from "./services/base.service";
 import * as Actions from "./redux";
+import { selectData } from "./redux/cart/cart.selector";
 function App() {
   const token = useSelector(selectToken);
+  const data = useSelector(selectData)
   HttpService.setToken(token);
-  const data = useSelector((state:any)=> state.addToCartReducer.data)
   let dispatch = useDispatch();
   useEffect(() => {
     console.log(token);

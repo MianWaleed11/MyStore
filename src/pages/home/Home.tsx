@@ -14,6 +14,7 @@ import "./home.css";
 import commerece_pic from "../../assets/images/ecommerce-case-studies.png";
 import character_pic from "../../assets/images/tyson-avatar.webp";
 import { Iproduct } from "../../interfaces";
+import { selectProducts } from "../../redux/Products/products.selector";
 
 let img: string;
 
@@ -32,7 +33,7 @@ const HomePage: React.FC = () => {
    * hooks
    */
   const history = useHistory();
-  const ProductsReducer = useSelector((state: any) => state.ProductsReducer);
+  const products = useSelector(selectProducts);
 
   /**
    *
@@ -41,17 +42,11 @@ const HomePage: React.FC = () => {
    */
 
   const show = (category: string | undefined) => {
-   
-   
-   
-   
-   
-   
     history.push(`/products/${category}`);
   };
 
   const seen = new Set();
-  const filteredArr = ProductsReducer.products.filter((el: any) => {
+  const filteredArr = products.filter((el: any) => {
     const duplicate = seen.has(el.category);
     seen.add(el.category);
     return !duplicate;
@@ -67,8 +62,6 @@ const HomePage: React.FC = () => {
       img = men_jacket;
     } else if (product.category === "women clothing") {
       img = women_jacket;
-    } else {
-      // img = product.image[0];
     }
 
     return (

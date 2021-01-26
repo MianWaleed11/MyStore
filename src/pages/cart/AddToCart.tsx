@@ -1,28 +1,27 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as Actions from "../../redux";
 import "./addToCart.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PayPalButton } from "react-paypal-button-v2";
+import { selectCart, selectCartInfo } from "../../redux/cart/cart.selector";
 export interface AddToCartProps {}
 
 const AddToCart: React.FC<AddToCartProps> = () => {
-  const reducer = useSelector((state: any) => {
-    return state.userCartInfoReducer;
-  });
+  const cartInfo = useSelector(selectCartInfo);
+  const cart = useSelector(selectCart);
   let dispatch = useDispatch();
   let subTotal = 0;
-  
-  const quantity = reducer.cart.map((v: any, i: number) => {
+  const quantity = cart.map((v: any) => {
     return v.quantity;
   });
   const removeFromCart = (id: string) => {
     console.log(id);
     dispatch(Actions.removeCartItem(id));
   };
-  const cartDetail = reducer.cartInfo.map((v: any, i: number) => {
+  const cartDetail = cartInfo.map((v: any, i: number) => {
     return (
       <tr>
-        <th scope="row">{i+1}</th>
+        <th scope="row">{i + 1}</th>
         <td>{v.title}</td>
         <td>{v.price}</td>
         <td>{quantity[i]}</td>
@@ -54,14 +53,11 @@ const AddToCart: React.FC<AddToCartProps> = () => {
         <p>Subtotal: {subTotal}</p>
         <PayPalButton
           amount="0.01"
-          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
           onSuccess={(
             details: { payer: { name: { given_name: string } } },
             data: { orderID: any }
           ) => {
             alert("Transaction completed by " + details.payer.name.given_name);
-
-            // OPTIONAL: Call your server to save the transaction
             return fetch("/paypal-transaction-complete", {
               method: "post",
               body: JSON.stringify({

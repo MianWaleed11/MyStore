@@ -6,13 +6,12 @@ import { useHistory } from "react-router-dom";
 import { UploadProductsProps } from "../../interfaces";
 import axios from "axios";
 import { UploadProductSchema } from "../../validations/upload.product.validation";
+import { selectToken } from "../../redux/user/user.selelector";
 export interface UploadProductProps {}
 
 const UploadProduct: React.FC<UploadProductProps> = () => {
   let history = useHistory();
-  const token = useSelector((state: any) => {
-    return state.userReducer.token;
-  });
+  const token = useSelector(selectToken);
   let imageURL: string = "";
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(UploadProductSchema),
