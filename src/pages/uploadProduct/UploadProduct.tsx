@@ -8,6 +8,8 @@ import { HttpService } from "../../services/base.service";
 import { productService } from "../../services/product.service";
 import axios from "axios";
 import { UploadProductSchema } from "../../validations/upload.product.validation";
+import Cloudinary from "cloudinary";
+import { Image } from "cloudinary-react";
 
 const UploadProduct: React.FC = () => {
   let history = useHistory();
@@ -31,22 +33,53 @@ const UploadProduct: React.FC = () => {
       console.log(error);
     }
   };
-  const handleChange = async (event: any) => {
-    console.log(event.target.files[0]);
-    const fd = new FormData();
 
-    fd.append("file", event.target.files[0]);
-    let res = await axios.post(
-      "http://localhost:5000/api/product/uploadImage",
-      fd
-    );
-    console.log(res.data.image);
-    imageURL = res.data.image;
-  };
+  const openWidget =() => {
+    try {
+      let widget = (window as any).cloudinary.createUploadWidget(
+        {
+          cloudName: `duckyou`,
+          uploadPreset: `ml_default`,
+        },
+        (error: any, result: any) => {
+          if (!error && result && result.event === "success") {
+            console.log("URL: " + result.info.url);
+            imageURL = result.info.url;
+          }
+        }
+      );
+      widget.open();
+      console.log(widget);
+    } catch (error) {
+      console.log(error);
+    }
+    };
+
+  // const handleChange = async (event: any) => {
+  //   try {
+  //     const fd = new FormData();
+     
+  //     fd.append("file", event.target.files[0]);
+
+  //      fd.append("upload_preset", "uppwslr7");
+   
+  //     let res = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/dpmmnkiu4/image/upload",
+  //       fd
+  //     );
+
+  //     console.log("this is image", res);
+  //     imageURL = res.data.image;
+    
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div>
       <div className="form-containor">
+        <button onClick={openWidget}>Upload</button>
         <form
           style={{ width: "300px", textAlign: "center" }}
           onSubmit={handleSubmit(onSubmit)}
@@ -100,16 +133,16 @@ const UploadProduct: React.FC = () => {
             </div>
             <div className="form-group">
               <label className="label-text">Image</label>
-              <input
+              {/* <input
                 type="file"
                 ref={register}
                 className="form-control"
                 id="email"
-                name="image"
-                onChange={handleChange}
+                name=""
+                onChange={openWidget}
                 aria-describedby="emailHelp"
                 placeholder="Enter Image"
-              />
+              /> */}
               {/* <img src={selectedFile} width="40px" height="40px"/> */}
               <small id="emailHelp" className="form-text text-muted">
                 {errors.image?.message}

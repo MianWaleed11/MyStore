@@ -5,7 +5,7 @@ export const UploadProductSchema = yup.object().shape({
   description: yup.string().required(),
   category: yup.string().required(),
   price: yup.number().required(),
-  image: yup.string().required(),
+  // image: yup.string().required(),
   continents: yup.number().required(),
   sold: yup.number().required(),
   views: yup.number().required(),

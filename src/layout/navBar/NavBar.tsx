@@ -124,7 +124,7 @@ const NavBar: React.FC<NavBarProps> = () => {
 
           {!isloggedIn && (
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
+              <NavLink className="nav-link" to="/login" style={{marginTop:'2px'}}>
                 Login
               </NavLink>
             </li>

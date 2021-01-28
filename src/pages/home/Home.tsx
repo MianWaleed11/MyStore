@@ -69,7 +69,7 @@ const Home: React.FC = () => {
     }
 
     return (
-      <div className="col-md-3 col-sm-12 mt-3 pb-3" key={i}>
+      <div className="col-md-3 col-sm-10 mt-3 pb-3" key={i}>
         <ProductsCards
           category={product.category}
           image={img}
